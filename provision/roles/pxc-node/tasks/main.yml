@@ -1,0 +1,60 @@
+---
+# tasks file for provision/roles/pxc-node
+
+
+# Install PXC
+- name: Install PXC 5.7
+  yum:
+    name: ['Percona-XtraDB-Cluster-full-57', 'libselinux-python', 'MySQL-python']
+    state: latest
+
+# Relax SELinux
+- name: Relax SELinux
+  selinux:
+    policy: targeted
+    state: permissive
+
+# Configure PXC
+- name: Setup PXC configuration file
+  blockinfile:
+    dest: /etc/percona-xtradb-cluster.conf.d/wsrep.cnf
+    block: |
+      wsrep_provider = /usr/lib64/galera3/libgalera_smm.so
+      wsrep_cluster_name = pxc-cluster
+      wsrep_cluster_address = gcomm://10.0.0.21,10.0.0.22,10.0.0.23
+      wsrep_node_name = {{ hostname }}
+      wsrep_node_address = {{ ip_address }}
+      wsrep_sst_method = xtrabackup-v2
+      wsrep_sst_auth = sstuser:percona18live
+      pxc_strict_mode = ENFORCING
+      binlog_format = ROW
+      default_storage_engine = InnoDB
+      innodb_autoinc_lock_mode = 2
+      pxc_strict_mode = permissive
+
+# Add userstat
+- name: Setup MySQL's my.cnf
+  blockinfile:
+    dest: /etc/percona-xtradb-cluster.conf.d/mysqld.cnf
+    block: |
+      enforce_gtid_consistency=1
+      gtid_mode=on
+      slow_query_log = ON
+      long_query_time = 0
+      userstat = ON
+      thread_statistics = ON
+
+# Start MySQL
+- name: Bootstrap cluster
+  service:
+    name: mysql@bootstrap.service
+    state: started
+  when: ("{{ hostname }}" == "node1")
+
+- name: Start MySQL
+  service:
+    name: mysql
+    state: started
+  when: ("{{ hostname }}" == "node2") or
+        ("{{ hostname }}" == "node3")
+

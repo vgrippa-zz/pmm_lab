@@ -1,0 +1,32 @@
+---
+# tasks file for provision/roles/sysbench
+
+- name: Install dependencies
+  yum:
+    name: ['make', 'automake', 'libtool', 'pkgconfig', 'libaio-devel', 'mariadb-devel', 'openssl-devel', 'postgresql-devel', 'git','wget','java','java-devel','epel-release']
+    state: latest
+
+- name: Get Sysbench
+  git:
+    repo: 'https://github.com/akopytov/sysbench.git'
+    dest: /opt/sysbench
+
+- name: Generate bindings
+  command: "./autogen.sh"
+  args:
+    chdir: /opt/sysbench
+
+- name: Configure Sysbench
+  command: "./configure --with-pgsql"
+  args:
+    chdir: /opt/sysbench
+
+- name: Install Sysbench
+  shell: make -j && make install
+  args:
+    chdir: /opt/sysbench
+
+- name: Get Sysbench-TPCC
+  git:
+    repo: 'https://github.com/Percona-Lab/sysbench-tpcc.git'
+    dest: /opt/sysbench-tpcc

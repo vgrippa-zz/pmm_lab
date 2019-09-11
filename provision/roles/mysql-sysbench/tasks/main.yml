@@ -1,0 +1,23 @@
+---
+# tasks file for provision/roles/mysql-sysbench
+
+# Create database
+- name: Create sysbench database
+  mysql_db:
+    login_user: root
+    login_password: percona18live
+    name: sysbench
+    state: present
+
+# Create user
+- name: Create sysbench user
+  mysql_user:
+    login_user: root
+    login_password: percona18live
+    name: sysbench
+    password: sysbench
+    host: '10.0.0.%'
+    priv: 'sysbench.*:ALL'
+    state: present
+
+

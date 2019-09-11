@@ -1,0 +1,6 @@
+---
+# tasks file for provision/roles/pmm-client-mysql
+
+- name: Configure PMM to monitor MySQL
+  shell: pmm-admin add mysql --host=localhost --user pmm --password 'percona18live'
+  tags: pmm-client-mysql

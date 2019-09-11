@@ -1,0 +1,20 @@
+---
+# tasks file for provision/roles/mysql-plugins
+
+# Install Percona Server response time plugins
+- name: Install query response time plugin (1/4)
+  run_once: true
+  shell: /usr/bin/mysql -e "INSTALL PLUGIN QUERY_RESPONSE_TIME_AUDIT SONAME 'query_response_time.so'"
+
+- name: Install query response time plugin (2/4)
+  run_once: true
+  shell: /usr/bin/mysql -e "INSTALL PLUGIN QUERY_RESPONSE_TIME SONAME 'query_response_time.so'"
+
+- name: Install query response time plugin (3/4)
+  run_once: true
+  shell: /usr/bin/mysql -e "INSTALL PLUGIN QUERY_RESPONSE_TIME_READ SONAME 'query_response_time.so'"
+
+- name: Install query response time plugin (4/4)
+  run_once: true
+  shell: /usr/bin/mysql -e "INSTALL PLUGIN QUERY_RESPONSE_TIME_WRITE SONAME 'query_response_time.so'"
+

@@ -1,0 +1,13 @@
+---
+# tasks file for provision/roles/mysql-root-pwd
+
+# Grab temporary password
+- name: Grab temporary MySQL root password
+  run_once: true
+  shell: grep "A temporary password is generated" /var/log/mysqld.log | awk -F ':\ ' '{print substr($2,1)}'
+  register: root_pwd
+
+# Update root password
+- name: Update MySQL root password
+  run_once: true
+  shell: /usr/bin/mysql -uroot -p"{{ root_pwd.stdout_lines[0] }}" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'percona18live'"

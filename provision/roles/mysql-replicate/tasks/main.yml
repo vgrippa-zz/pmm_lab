@@ -1,0 +1,12 @@
+---
+# tasks file for provision/roles/mysql-replicate
+
+# Setup replication
+- name: Point replica to master
+  run_once: true
+  shell: /usr/bin/mysql -e "CHANGE MASTER TO MASTER_HOST='10.0.0.21', MASTER_USER='repl', MASTER_PASSWORD='percona18live', MASTER_AUTO_POSITION = 1;"
+
+- name: Start replication
+  run_once: true
+  shell: /usr/bin/mysql -e "START SLAVE"
+

@@ -1,0 +1,54 @@
+---
+# tasks file for provision/roles/mysql-replica
+
+# Install MySQL
+- name: Install Percona-Server
+  yum:
+    name: ['Percona-Server-server-57', 'libselinux-python', 'MySQL-python']
+    state: latest
+
+# Start MySQL
+- name: Start MySQL
+  service:
+    name: mysql
+    state: started
+
+# Add userstat
+- name: Setup MySQL's my.cnf (1/2)
+  blockinfile:
+    #dest: /etc/my.cnf
+    dest: /etc/percona-server.conf.d/mysqld.cnf
+    #insertafter: '^\[mysqld\]'
+    block: |
+      server_id=2
+      enforce_gtid_consistency=1
+      gtid_mode=on
+      slow_query_log = ON
+      long_query_time = 0
+      userstat = ON
+      thread_statistics = ON
+      validate_password_policy = LOW
+
+- name: Setup MySQL's my.cnf (1/2)
+  blockinfile:
+    #dest: /etc/my.cnf
+    dest: /etc/my.cnf
+    #insertafter: '^\[mysqld\]'
+    block: |
+      !includedir /etc/percona-server.conf.d/
+
+# Add userstat
+#- name: Setup MySQL's my.cnf (1/2)
+#  lineinfile:
+#    #dest: /etc/my.cnf
+#    dest: /etc/percona-server.conf.d/mysqld_safe.cnf
+#    #regex: '^validate-password'
+#    #insertafter: '^\[mysqld_safe\]'
+#    line: validate-password = OFF
+
+
+# Restart MySQL
+- name: Restart MySQL
+  service:
+    name: mysql
+    state: restarted

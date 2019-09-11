@@ -1,0 +1,26 @@
+---
+# tasks file for provision/roles/mysql-my-cnf
+
+# Create ~/.my.cnf files
+
+- name: Create .my.cnf for vagrant user
+  run_once: true
+  become_user: vagrant
+  blockinfile:
+    create: yes
+    dest: /home/vagrant/.my.cnf
+    block: |
+      [client]
+      user = root
+      password = percona18live
+
+- name: Create .my.cnf for root
+  run_once: true
+  blockinfile:
+    create: yes
+    dest: /root/.my.cnf
+    block: |
+      [client]
+      user = root
+      password = percona18live
+

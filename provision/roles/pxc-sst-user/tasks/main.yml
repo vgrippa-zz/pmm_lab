@@ -1,0 +1,10 @@
+---
+# tasks file for provision/roles/pxc-sst-user
+
+- mysql_user:
+    login_user: root
+    login_password: percona18live
+    name: sstuser
+    password: percona18live
+    priv: '*.*:RELOAD,LOCK TABLES,PROCESS,REPLICATION CLIENT'
+    state: present
