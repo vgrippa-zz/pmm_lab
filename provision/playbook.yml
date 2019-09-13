@@ -1,11 +1,17 @@
 ---
+- hosts: all
+  gather_facts: yes
+  become: true
+  roles:
+  - common
+  - pmm-client
+
 - hosts: pg-master
   gather_facts: yes
   become: true
   roles:
     - pg
     - pg-master
-    - pmm-client
     - pmm-client-pg
 
 - hosts: pg-replica
@@ -14,7 +20,6 @@
   roles:
     - pg
     - pg-replica
-    - pmm-client
     - pmm-client-pg
 
 - hosts: app-server
@@ -47,7 +52,6 @@
     - mysql-plugins
     - mysql-replication-user
     - mysql-pmm-user
-    - pmm-client
     - pmm-client-mysql
     - mysql-sysbench
 
@@ -61,7 +65,6 @@
     - percona-repo
     - pxc-node
     - mysql-my-cnf
-    - pmm-client
     - pmm-client-mysql
 
 - hosts: pxc-node3
@@ -74,7 +77,6 @@
     - percona-repo
     - pxc-node
     - mysql-my-cnf
-    - pmm-client
     - pmm-client-mysql
 
 - hosts: mysql-replica
@@ -87,6 +89,4 @@
     - mysql-my-cnf
     - mysql-plugins
     - mysql-replicate
-    - pmm-client
     - pmm-client-mysql
-
