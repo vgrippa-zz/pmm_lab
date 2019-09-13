@@ -71,18 +71,8 @@
     path: /etc/sysfs.conf
     line: |
       kernel/mm/transparent_hugepage/enabled = never
+      /sys/kernel/mm/transparent_hugepage/defrag = never
 
-# tasks for ansible-role-disk-scheduler
-- name: get list of block devices to test
-  shell: ls /sys/block/ | egrep '^(([shv]|xv)d[a-z])|(nvme[0-9a-z]+)$'
-  register: block_devs
-  changed_when: no
-  check_mode: no
-
-- name: set block device to use variable disk_scheduler as i/o scheduler
-  become: yes
-  shell: echo {{ disk_scheduler }} > /sys/block/{{ item }}/queue/scheduler
-  with_items: "{{ block_devs.stdout_lines }}"
 
 - selinux:
       state: disabled
