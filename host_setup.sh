@@ -36,6 +36,6 @@ sed -i 's/#PermitRootLogin/PermitRootLogin/g'  /etc/ssh/sshd_config
 echo "percona" | passwd --stdin root
 
 # Installing docker and PMM on localhost
-ansible-playbook provision/playbook_localhost.yml
+ansible-playbook /pmm_lab/provision/provision/playbook_localhost.yml
 
 echo 'Please, reboot the server'
