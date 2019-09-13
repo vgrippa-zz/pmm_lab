@@ -1,4 +1,87 @@
----
+- name: Create the GPG key for EPEL
+  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+
+- name: Install the EPEL Repo
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: Install the Percona Repo
+  yum:
+    name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    state: present
+
+- name: Install a list of packages (wget, sysstat, telnet, Percona Toolkit, strace)
+  yum:
+    name:
+      - wget
+      - sysstat
+      - telnet
+      - percona-toolkit
+      - perf
+      - strace
+      - gdb
+      - sysfsutils
+    state: latest
+
+# Set vm.swappiness to 1 in /etc/sysctl.conf
+- sysctl:
+    name: vm.swappiness
+    value: 1
+    state: present
+
+# Network settings
+- sysctl:
+    name: net.ipv4.tcp_tw_recycle
+    value: 1
+    state: present
+
+- sysctl:
+    name: net.ipv4.tcp_tw_reuse
+    value: 1
+    state: present
+
+- sysctl:
+    name: net.ipv4.tcp_syncookies
+    value: 0
+    state: present
+
+# Disabling THP
+
+- name: Create sysfs file
+  file:
+    path: "/etc/sysfs.conf"
+    state: touch
+
+- name: Disable transparent huge pages for performance
+  become: yes
+  lineinfile:
+    path: /etc/sysfs.conf
+    line: |
+      kernel/mm/transparent_hugepage/enabled = never
+      /sys/kernel/mm/transparent_hugepage/defrag = never
+
+- selinux:
+      state: disabled
+      configfile: /etc/selinux/config
+
+- name: Set SELinux in permissive mode until the machine is rebooted
+  command: setenforce 0
+  ignore_errors: true
+  changed_when: false
+
+- name: Reboot immediately if there was a change.
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+
+- name: "Wait for the reboot to complete if there was a change."
+  wait_for_connection:
+    connect_timeout: 10
+    delay: 5
+    sleep: 5
+    timeout: 300
+
 - hosts: localhost
   gather_facts: yes
   become: true

@@ -15,7 +15,6 @@ cd /
 sudo wget https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_x86_64.rpm
 sudo rpm -ivh vagrant_2.2.2_x86_64.rpm
 
-echo "10.0.0.13 main-server" >> /etc/hosts
 echo "10.0.0.10 pg-master" >> /etc/hosts
 echo "10.0.0.11 pg-replica" >> /etc/hosts
 echo "10.0.0.21 pxc-node1" >> /etc/hosts
@@ -35,5 +34,8 @@ sudo yum install -y ansible
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g'  /etc/ssh/sshd_config
 sed -i 's/#PermitRootLogin/PermitRootLogin/g'  /etc/ssh/sshd_config
 echo "percona" | passwd --stdin root
+
+# Installing docker and PMM on localhost
+ansible-playbook provision/playbook_localhost.yml
 
 echo 'Please, reboot the server'
