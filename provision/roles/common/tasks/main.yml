@@ -66,12 +66,11 @@
       kernel/mm/transparent_hugepage/enabled = never
 
 # tasks for ansible-role-disk-scheduler
-
 - name: get list of block devices to test
-   shell: ls /sys/block/ | egrep '^(([shv]|xv)d[a-z])|(nvme[0-9a-z]+)$'
-   register: block_devs
-   changed_when: no
-   check_mode: no
+    shell: ls /sys/block/ | egrep '^(([shv]|xv)d[a-z])|(nvme[0-9a-z]+)$'
+    register: block_devs
+    changed_when: no
+    check_mode: no
 
 - name: test if block device using variable disk_scheduler as i/o scheduler
    shell: cat /sys/block/{{ item }}/queue/scheduler | egrep -q '\[{{ disk_scheduler }}\]'
