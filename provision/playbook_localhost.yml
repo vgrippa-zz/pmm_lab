@@ -70,18 +70,6 @@
   ignore_errors: true
   changed_when: false
 
-- name: Reboot immediately if there was a change.
-  shell: "sleep 5 && reboot"
-  async: 1
-  poll: 0
-
-- name: "Wait for the reboot to complete if there was a change."
-  wait_for_connection:
-    connect_timeout: 10
-    delay: 5
-    sleep: 5
-    timeout: 300
-
 - hosts: localhost
   gather_facts: yes
   become: true
