@@ -17,13 +17,14 @@
   yum_repository:
     name: epel
     description: EPEL YUM repo
-    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    baseurl: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 - name: Add repository
   yum_repository:
-    name: epel
+    name: percona-repo
     description: Percona repo
-    baseurl: https://repo.percona.com/yum/$releasever/$basearch/
+    baseurl: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+
 
 - name: Install a list of packages (EPEL, wget, Percona repo, sysstat, telnet, Percona Toolkit, strace)
   yum:
