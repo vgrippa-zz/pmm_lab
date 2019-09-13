@@ -1,5 +1,9 @@
 ---
-# tasks file for provision/roles/pmm-client-mongo
+- name: Setup PMM agent
+  shell: pmm-admin config --server=10.0.0.13
+  tags: pmm-client
+
+  # tasks file for provision/roles/pmm-client-mongo
 - name: Create the file to create PMM user in MongoDB
   template: src=create_user.j2 dest=/tmp/create_user.js
   delegate_to: '{{ item }}'
@@ -36,4 +40,3 @@
   delegate_to: '{{ item }}'
   with_items: "{{ groups['pmm_client_servers'] }}"
   tags: pmm-client-mongo
-

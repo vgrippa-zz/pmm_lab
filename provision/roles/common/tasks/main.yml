@@ -1,22 +1,8 @@
 ---
 # This Playbook runs all the common plays in the deployment
 
-#- name: Add IP address of all hosts to all hosts
-#  lineinfile:
-#    dest: /etc/hosts
-#    regexp: '.*{{ item }}$'
-#    line: "{{ hostvars[item].ansible_default_ipv4.address }} {{item}}"
-#    state: present
-#  when: hostvars[item].ansible_host is defined
-#  with_items: "{{ groups['all'] }}"
-
 - name: Create the hosts file for all machines
   template: src=hosts.j2 dest=/etc/hosts
-
-- name: Install the EPEL Repo
-  yum:
-    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    state: present
 
 - name: Create the GPG key for EPEL
   copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
@@ -24,22 +10,82 @@
 - name: Create the mongod user
   user: name=mongod comment="MongoD"
 
-- name: Create the data directory for the namenode metadata
-  file: path={{ mongodb_datadir_prefix }} owner=mongod group=mongod state=directory
+- name: Create the mysql user
+  user: name=mysql comment="MySQL"
 
-- name: Install the Percona Repo
+- name: Install a list of packages (EPEL, wget, Percona repo, sysstat, telnet, Percona Toolkit, strace)
   yum:
-    name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    name:
+      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - wget
+      - https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+      - sysstat
+      - telnet
+      - percona-toolkit
+      - perf
+      - strace
+      - gdb
+      - sysfsutils
+    state: latest
+
+# Set vm.swappiness to 1 in /etc/sysctl.conf
+- sysctl:
+    name: vm.swappiness
+    value: 1
     state: present
 
-- name: Install the mongodb package
-  yum: name={{ item }} state=installed
-  with_items:
-   - Percona-Server-MongoDB-36
+# Network settings
+- sysctl:
+    name: net.ipv4.tcp_tw_recycle
+    value: 1
+    state: present
+- sysctl:
+    name: net.ipv4.tcp_tw_reuse
+    value: 1
+    state: present
+- sysctl:
+    name: net.ipv4.tcp_syn_retries
+    value: 0
+    state: present
+- sysctl:
+    name: net.ipv4.tcp_synack_retries
+    value: 0
+    state: present
+- sysctl:
+    name: net.ipv4.tcp_syncookies
+    value: 0
+    state: present
 
-#- name: Create the iptables file
-#  template: src=iptables.j2 dest=/etc/sysconfig/iptables
-#  notify: restart iptables
+# Disabling THP
+
+- name: Disable transparent huge pages for performance
+  become: yes
+  lineinfile:
+    path: /etc/sysfs.conf
+    line: |
+      kernel/mm/transparent_hugepage/enabled = never
+
+# tasks for ansible-role-disk-scheduler
+#
+ - name: get list of block devices to test
+   shell: ls /sys/block/ | egrep '^(([shv]|xv)d[a-z])|(nvme[0-9a-z]+)$'
+   register: block_devs
+   changed_when: no
+   check_mode: no
+
+ - name: test if block device using variable disk_scheduler as i/o scheduler
+   shell: cat /sys/block/{{ item }}/queue/scheduler | egrep -q '\[{{ disk_scheduler }}\]'
+   with_items: "{{ block_devs.stdout_lines }}"
+   register: noop_test
+   changed_when: noop_test.rc == 1
+   failed_when: noop_test.rc == 2
+
+ - name: set block device to use variable disk_scheduler as i/o scheduler
+   become: yes
+   shell: echo {{ disk_scheduler }} > /sys/block/{{ item }}/queue/scheduler
+   with_items: "{{ block_devs.stdout_lines }}"
+   when: noop_test.changed
+
 
 - selinux:
       state: disabled
@@ -49,3 +95,8 @@
   command: setenforce 0
   ignore_errors: true
   changed_when: false
+
+- name: Reboot immediately if there was a change.
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0

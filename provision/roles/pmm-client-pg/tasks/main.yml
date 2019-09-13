@@ -1,5 +1,8 @@
 ---
 # tasks file for provision/roles/pmm-client-pg
+- name: Setup PMM agent
+  shell: pmm-admin config --server=10.0.0.13
+  tags: pmm-client
 
 - name: Add new configuration to "pg_hba.conf" to allow local connection for pmm
   lineinfile:
@@ -18,4 +21,3 @@
 - name: Configure PMM to monitor PostgreSQL
   shell: pmm-admin add postgresql --host=localhost --user pmm --password 'pmm'
   tags: pmm-client-pg
-
