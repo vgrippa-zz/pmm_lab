@@ -3,6 +3,7 @@
 - name: Copy the PMM server install script
   become: true
   copy: src=get-pmm.sh dest=/tmp/secret
+  delegate_to: '{{ item }}'
 
 - name: Execute PMM install script
   command: "/bin/sh /tmp/get-pmm.sh"
