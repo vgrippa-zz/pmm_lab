@@ -60,6 +60,11 @@
 
 # Disabling THP
 
+- name: Create sysfs file
+  file:
+    path: "/etc/sysfs.conf"
+    state: touch
+
 - name: Disable transparent huge pages for performance
   become: yes
   lineinfile:
