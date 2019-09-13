@@ -30,13 +30,6 @@
     - sysbench-pg
     - sysbench-mysql
 
-- hosts: main-server
-  gather_facts: yes
-  become: true
-  roles:
-    - docker-host
-    - pmm-server
-
 - hosts: pxc-node1
   vars:
     hostname: 'node1'

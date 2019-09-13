@@ -73,7 +73,6 @@
       kernel/mm/transparent_hugepage/enabled = never
       /sys/kernel/mm/transparent_hugepage/defrag = never
 
-
 - selinux:
       state: disabled
       configfile: /etc/selinux/config
