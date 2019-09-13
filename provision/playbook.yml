@@ -44,7 +44,6 @@
   gather_facts: yes
   become: true
   roles:
-    - percona-repo
     - pxc-node
     - mysql-root-pwd
     - mysql-my-cnf
@@ -62,7 +61,6 @@
   gather_facts: yes
   become: true
   roles:
-    - percona-repo
     - pxc-node
     - mysql-my-cnf
     - pmm-client-mysql
@@ -74,7 +72,6 @@
   gather_facts: yes
   become: true
   roles:
-    - percona-repo
     - pxc-node
     - mysql-my-cnf
     - pmm-client-mysql
@@ -83,7 +80,6 @@
   gather_facts: yes
   become: true
   roles:
-    - percona-repo
     - mysql-replica
     - mysql-root-pwd
     - mysql-my-cnf
