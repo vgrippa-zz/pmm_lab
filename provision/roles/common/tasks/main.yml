@@ -13,12 +13,22 @@
 - name: Create the mysql user
   user: name=mysql comment="MySQL"
 
+- name: Add repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+
+- name: Add repository
+  yum_repository:
+    name: epel
+    description: Percona repo
+    baseurl: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+
 - name: Install a list of packages (EPEL, wget, Percona repo, sysstat, telnet, Percona Toolkit, strace)
   yum:
     name:
-      - http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
       - wget
-      - https://repo.percona.com/yum/percona-release-latest.noarch.rpm
       - sysstat
       - telnet
       - percona-toolkit
