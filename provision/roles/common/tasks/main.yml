@@ -23,7 +23,7 @@
     name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     state: present
 
-- name: Install a list of packages (EPEL, wget, Percona repo, sysstat, telnet, Percona Toolkit, strace)
+- name: Install a list of packages (wget, sysstat, telnet, Percona Toolkit, strace)
   yum:
     name:
       - wget
@@ -47,18 +47,22 @@
     name: net.ipv4.tcp_tw_recycle
     value: 1
     state: present
+
 - sysctl:
     name: net.ipv4.tcp_tw_reuse
     value: 1
     state: present
+
 - sysctl:
     name: net.ipv4.tcp_syn_retries
     value: 0
     state: present
+
 - sysctl:
     name: net.ipv4.tcp_synack_retries
     value: 0
     state: present
+    
 - sysctl:
     name: net.ipv4.tcp_syncookies
     value: 0
