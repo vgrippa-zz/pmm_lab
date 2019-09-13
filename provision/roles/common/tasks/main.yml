@@ -23,7 +23,7 @@
   yum_repository:
     name: epel
     description: Percona repo
-    baseurl: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    baseurl: https://repo.percona.com/yum/$releasever/$basearch/
 
 - name: Install a list of packages (EPEL, wget, Percona repo, sysstat, telnet, Percona Toolkit, strace)
   yum:
