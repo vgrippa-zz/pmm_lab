@@ -8,12 +8,6 @@
     name: ['Percona-XtraDB-Cluster-full-57', 'libselinux-python', 'MySQL-python']
     state: latest
 
-# Relax SELinux
-- name: Relax SELinux
-  selinux:
-    policy: targeted
-    state: permissive
-
 # Configure PXC
 - name: Setup PXC configuration file
   blockinfile:
@@ -25,7 +19,7 @@
       wsrep_node_name = {{ hostname }}
       wsrep_node_address = {{ ip_address }}
       wsrep_sst_method = xtrabackup-v2
-      wsrep_sst_auth = sstuser:percona18live
+      wsrep_sst_auth = sstuser: {{ mysql_root_pass }}
       pxc_strict_mode = ENFORCING
       binlog_format = ROW
       default_storage_engine = InnoDB
@@ -57,4 +51,3 @@
     state: started
   when: ("{{ hostname }}" == "node2") or
         ("{{ hostname }}" == "node3")
-

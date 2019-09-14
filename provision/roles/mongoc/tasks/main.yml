@@ -1,6 +1,15 @@
 ---
 # This playbook  deploys the mongodb configurationdb  servers
+  ## Install MongoDB
 
+- name: Enable Repo
+  shell: percona-release enable psmdb-40 release
+
+- name: install psmdb
+  yum:
+    name: percona-server-mongodb
+    state: present
+    
 - name: Create data directory for mongoc configuration server
   file: path={{ mongodb_datadir_prefix }}/configdb state=directory owner=mongod group=mongod
 
@@ -30,4 +39,3 @@
 
 - name: Initialize the replication set and create admin user
   shell: /usr/bin/mongo  localhost:{{ mongoc_port }}/admin  /tmp/repset_init.js
-

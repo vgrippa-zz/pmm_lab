@@ -1,5 +1,14 @@
 ---
 # This role deploys the mongod processes and sets up the replication set.
+  ## Install MongoDB
+
+- name: Enable Repo
+  shell: percona-release enable psmdb-40 release
+
+- name: install psmdb
+  yum:
+    name: percona-server-mongodb
+    state: present
 
   ## Create directories
 
@@ -116,4 +125,3 @@
   shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -umongoadmin -pmongoadmin  /tmp/repset_addnode{{ mongod_port }}.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['replication_servers'] }}"
-

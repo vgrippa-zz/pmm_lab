@@ -24,5 +24,14 @@ iface: eth1
 
 
 
-# The password for admin user
-mongo_admin_pass: 123456
+# The password for MongoDB admin user
+mongo_admin_pass: percona
+
+# The password for MongoDB mongodb_exporter user
+mongodb_exporter_pass: percona
+
+# The password for MySQL root user
+mysql_root_pass: percona
+
+# PMM ip address
+pmm_ip_address = 10.0.0.1
