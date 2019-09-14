@@ -70,6 +70,7 @@ start_pmm() {
 
     run_docker run -d \
         -p 80:80 \
+        -p 443:443 \
         --volumes-from pmm-data \
         --name pmm-server \
         --restart always \
