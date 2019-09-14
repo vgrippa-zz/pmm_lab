@@ -34,4 +34,4 @@ mongodb_exporter_pass: percona
 mysql_root_pass: percona
 
 # PMM ip address
-pmm_ip_address = 10.0.0.1
+pmm_ip_address: 10.0.0.1

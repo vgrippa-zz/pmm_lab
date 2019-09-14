@@ -58,8 +58,8 @@ Vagrant.configure("2") do |config|
       machine.vm.hostname = "mongo#{machine_id}"
       machine.vm.network "private_network", ip: "10.0.0.#{13+machine_id}"
       machine.vm.provider :virtualbox do |vb|
-          vb.customize ["modifyvm", :id, "--memory", "1024"]
-          vb.customize ["modifyvm", :id, "--cpus", "1"]
+          vb.customize ["modifyvm", :id, "--memory", "2048"]
+          vb.customize ["modifyvm", :id, "--cpus", "2"]
 
       # Only execute once the Ansible provisioner,
       # when all the machines are up and ready.

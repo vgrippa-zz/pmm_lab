@@ -6,4 +6,4 @@ rs.initiate({
        ]
 })
 sleep(3000)
-db.createUser({ user: "admin" , pwd: "{{ mongo_admin_pass }}", roles: ["root"]}, { w: 0 , wtimeout: 5000 } )
+db.createUser({ user: "admin" , pwd: "{{ mongo_admin_pass | quote }}", roles: ["root"]}, { w: 0 , wtimeout: 5000 } )
