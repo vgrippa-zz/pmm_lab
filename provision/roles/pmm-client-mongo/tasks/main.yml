@@ -24,13 +24,13 @@
 
 
 - name: Set profiling
-  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -umongoadmin -pmongoadmin  /tmp/set_profiling.js
+  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/set_profiling.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['pmm_client_servers'] }}"
   tags: pmm-client-mongo
 
 - name: Create user
-  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -umongoadmin -pmongoadmin  /tmp/create_user.js
+  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/create_user.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['pmm_client_servers'] }}"
   tags: pmm-client-mongo

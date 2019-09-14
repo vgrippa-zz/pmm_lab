@@ -108,7 +108,7 @@
   with_items: "{{ groups['replication_servers'] }}"
 
 - name: Initialize the replication set
-  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -umongoadmin -pmongoadmin  /tmp/repset_init{{ mongod_port }}.js
+  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_init{{ mongod_port }}.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['replication_servers'] }}"
   ignore_errors: yes
