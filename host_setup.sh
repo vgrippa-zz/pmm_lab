@@ -1,6 +1,6 @@
 # Install VirtualBox dependencies
 sudo yum install -y epel-release
-sudo yum install -y gcc dkms make qt libgomp patch
+sudo yum install -y gcc dkms make qt libgomp patch sysstat
 sudo yum install -y kernel-headers kernel-devel binutils glibc-headers glibc-devel font-forge
 
 # Instal VB repo
@@ -13,7 +13,7 @@ sudo yum -y install VirtualBox-5.2
 # Vagrant
 cd /
 sudo wget https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_x86_64.rpm
-sudo rpm -ivh vagrant_2.2.2_x86_64.rpm
+sudo rpm -ivh vagrant_2.2.5_x86_64.rpm
 
 echo "10.0.0.10 pg-master" >> /etc/hosts
 echo "10.0.0.11 pg-replica" >> /etc/hosts

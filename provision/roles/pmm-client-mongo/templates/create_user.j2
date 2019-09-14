@@ -1,6 +1,6 @@
 db.getSiblingDB("admin").createUser({
     user: "mongodb_exporter",
-    pwd: "{{ mongodb_exporter_pass }}",
+    pwd: "{{ mongodb_exporter_pass | quote }}",
     roles: [
         { role: "clusterMonitor", db: "admin" },
         { role: "read", db: "local" }
