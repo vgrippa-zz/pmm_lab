@@ -43,7 +43,6 @@
     - pxc-sst-user
     - mysql-plugins
     - mysql-replication-user
-    - mysql-pmm-user
     - pmm-client-mysql
     - mysql-sysbench
 
