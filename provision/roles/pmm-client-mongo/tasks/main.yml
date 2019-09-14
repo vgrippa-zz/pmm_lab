@@ -1,6 +1,6 @@
 ---
 - name: Setup PMM agent
-  shell: pmm-admin config --server={{ pmm_ip_address }}
+  shell: pmm-admin config --server-insecure-tls --server-address={{ pmm_ip_address }}:443
   tags: pmm-client
 
   # tasks file for provision/roles/pmm-client-mongo
