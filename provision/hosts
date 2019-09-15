@@ -31,8 +31,3 @@ mongo3
 [pmm_client_servers]
 mongo1 mongod_port=2700
 mongo2 mongod_port=2701
-
-# MongoDB ports
-[pmm_client_mongodb_ports]
-2700
-2701
