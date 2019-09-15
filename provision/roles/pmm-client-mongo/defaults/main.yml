@@ -1,4 +1,4 @@
 # defaults file for fixed_hostname
 #
 
-fixed_hostname: {{ inventory_hostname }}
+fixed_hostname: "{{ inventory_hostname }}"
