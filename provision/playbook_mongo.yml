@@ -31,8 +31,6 @@
 #  - import_tasks: roles/mongod/tasks/shards.yml
 
 - hosts: pmm_client_servers
-  vars:
-    pmm_client_mongodb_port: ['2700','2701']
   gather_facts: yes
   become: true
   ignore_errors: true
