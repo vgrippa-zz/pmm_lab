@@ -23,7 +23,7 @@
     name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     state: present
 
-- name: Install a list of packages (wget, sysstat, telnet, Percona Toolkit, strace, net-tools, lsof, telnet)
+- name: Install a list of packages (wget, sysstat, telnet, Percona Toolkit, strace, net-tools, lsof)
   yum:
     name:
       - wget
@@ -36,7 +36,6 @@
       - sysfsutils
       - net-tools
       - lsof
-      - telnet
     state: latest
 
 # Set vm.swappiness to 1 in /etc/sysctl.conf
