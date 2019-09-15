@@ -1,6 +1,6 @@
 # Install VirtualBox dependencies
 sudo yum install -y epel-release
-sudo yum install -y gcc dkms make qt libgomp patch sysstat net-tools
+sudo yum install -y gcc dkms make qt libgomp patch sysstat net-tools telnet
 sudo yum install -y kernel-headers kernel-devel binutils glibc-headers glibc-devel font-forge
 
 # Instal VB repo

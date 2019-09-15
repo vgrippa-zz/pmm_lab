@@ -1,10 +1,10 @@
 ---
 - name: Setup PMM agent
   shell: pmm-admin config --server-insecure-tls --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
-  tags: pmm-client
+  delegate_to: '{{ item }}'
   with_items: "{{ groups['pmm_client_servers'] }}"
   tags: pmm-client-mongo
-  
+
   # tasks file for provision/roles/pmm-client-mongo
 - name: Create the file to create PMM user in MongoDB
   template: src=create_user.j2 dest=/tmp/create_user.js
