@@ -1,3 +1,3 @@
 {% for host in groups['pmm_client_servers'] %}
-  pmm-admin add mongodb --username=mongodb_exporter --password={{ mongodb_exporter_pass }} --use-profiler --cluster MongoCluster --server-insecure-tls --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check localhost:{{ hostvars[host]['mongod_port'] }} {{ ansible_hostname }}-{{ hostvars[host]['mongod_port']  }}
+  pmm-admin add mongodb --username=mongodb_exporter --password={{ mongodb_exporter_pass }} --use-profiler --cluster MongoCluster --server-insecure-tls --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check localhost:{{ hostvars[host]['mongod_port'] }} {{ inventory_hostname }}-{{ hostvars[host]['mongod_port']  }}
 {% endfor %}
