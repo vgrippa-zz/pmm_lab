@@ -3,8 +3,8 @@
 
 - mysql_user:
     login_user: root
-    login_password: {{ mysql_root_pass }}
+    login_password: "{{ mysql_root_pass }}"
     name: sstuser
-    password: {{ mysql_sstuser_pass }}
+    password: "{{ mysql_sstuser_pass }}"
     priv: '*.*:RELOAD,LOCK TABLES,PROCESS,REPLICATION CLIENT'
     state: present
