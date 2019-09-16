@@ -65,7 +65,7 @@
     path: "/etc/sysfs.conf"
     state: touch
 
-- name: Disable transparent huge pages for performance
+- name: Disable transparent huge pages for better memory management
   become: yes
   lineinfile:
     path: /etc/sysfs.conf
