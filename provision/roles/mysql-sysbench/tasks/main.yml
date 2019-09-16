@@ -5,7 +5,7 @@
 - name: Create sysbench database
   mysql_db:
     login_user: root
-    login_password: percona18live
+    login_password: "{{ mysql_root_pass }}"
     name: sysbench
     state: present
 
@@ -13,11 +13,9 @@
 - name: Create sysbench user
   mysql_user:
     login_user: root
-    login_password: percona18live
+    login_password: "{{ mysql_root_pass }}"
     name: sysbench
     password: sysbench
     host: '10.0.0.%'
     priv: 'sysbench.*:ALL'
     state: present
-
-
