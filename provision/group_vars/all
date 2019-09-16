@@ -33,5 +33,8 @@ mongodb_exporter_pass: percona
 # The password for MySQL root user
 mysql_root_pass: PErC0nATutorial
 
+# The password for the sst user
+mysql_sstuser_pass: PErC0nATutorial
+
 # PMM ip address
 pmm_ip_address: 10.0.0.1

@@ -19,7 +19,7 @@
       wsrep_node_name = {{ hostname }}
       wsrep_node_address = {{ ip_address }}
       wsrep_sst_method = xtrabackup-v2
-      wsrep_sst_auth = sstuser: {{ mysql_root_pass }}
+      wsrep_sst_auth = sstuser: {{ mysql_sstuser_pass }}
       pxc_strict_mode = ENFORCING
       binlog_format = ROW
       default_storage_engine = InnoDB

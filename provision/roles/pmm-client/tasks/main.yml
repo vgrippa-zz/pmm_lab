@@ -23,6 +23,6 @@
 - name: Disable Experimental Repo
   shell: percona-release disable original experimental
 
-# Rolling back experimental packages
-- name: Disable Experimental Repo
+# Rolling back experimental packages and enabling original repo
+- name: Enable Original Repo
   shell: percona-release enable original
