@@ -1,8 +1,9 @@
 ---
 # tasks file for provision/roles/pmm-client-pg
 - name: Setup PMM agent
-  shell: pmm-admin config --server=10.0.0.13
+  shell: pmm-admin config --server-insecure-tls "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}" --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
   tags: pmm-client
+
 
 - name: Add new configuration to "pg_hba.conf" to allow local connection for pmm
   lineinfile:
@@ -19,5 +20,5 @@
   tags: pmm-client-pg
 
 - name: Configure PMM to monitor PostgreSQL
-  shell: pmm-admin add postgresql --host=localhost --user pmm --password 'pmm'
+  shell: pmm-admin add postgresql --host=localhost --user pmm --password '{{ postgres_pmm_pass }}'
   tags: pmm-client-pg

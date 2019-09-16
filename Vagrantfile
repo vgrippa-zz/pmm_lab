@@ -7,15 +7,15 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
   config.ssh.insert_key = false
 ############# Postgres ######################
-##  config.vm.define "pg-master" do |server|
-##    server.vm.hostname = 'pg-master'
-##    server.vm.network :private_network, ip: '10.0.0.10'
-##  end
-##
-##  config.vm.define "pg-replica" do |server|
-##    server.vm.hostname = 'pg-replica'
-##    server.vm.network :private_network, ip: '10.0.0.11'
-##  end
+  config.vm.define "pg-master" do |server|
+    server.vm.hostname = 'pg-master'
+    server.vm.network :private_network, ip: '10.0.0.10'
+  end
+
+  config.vm.define "pg-replica" do |server|
+    server.vm.hostname = 'pg-replica'
+    server.vm.network :private_network, ip: '10.0.0.11'
+  end
 
 ############# MySQL ######################
   config.vm.define "pxc-node1" do |server|

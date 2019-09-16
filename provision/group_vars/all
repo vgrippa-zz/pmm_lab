@@ -36,5 +36,11 @@ mysql_root_pass: PErC0nATutorial
 # The password for the sst user
 mysql_sstuser_pass: PErC0nATutorial
 
+# The password for the replication user
+mysql_repl_pass: PErC0nATutorial
+
 # PMM ip address
 pmm_ip_address: 10.0.0.1
+
+# The password for the pmm user Postgres
+postgres_pmm_pass: PErC0nATutorial

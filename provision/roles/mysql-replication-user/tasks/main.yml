@@ -7,7 +7,7 @@
     login_user: root
     login_password: "{{ mysql_root_pass }}"
     name: repl
-    password: "{{ mysql_root_pass }}"
+    password: "{{ mysql_repl_pass }}"
     host: '10.0.0.%'
     priv: '*.*:REPLICATION SLAVE,REPLICATION CLIENT'
     state: present
