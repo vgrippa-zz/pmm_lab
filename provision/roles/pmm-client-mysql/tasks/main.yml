@@ -2,10 +2,12 @@
 # tasks file for provision/roles/pmm-client-mysql
 
 - name: Setup PMM agent
-  shell: pmm-admin config --server= {{ pmm_ip_address }}
-  tags: pmm-client
+  shell: pmm-admin config --server-insecure-tls "{{ hostvars[item]['ansible_eth1']['ipv4']['address'] }}" --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
+  delegate_to: '{{ item }}'
+  with_items: "{{ groups['pmm_client_servers'] }}"
+  tags: pmm-client-mysql
 
 
 - name: Configure PMM to monitor MySQL
-  shell: pmm-admin add mysql --host=localhost --user pmm --password '{{ mysql_root_pass }}' --create-user
+  shell: pmm-admin add mysql --host=localhost --username=pmm --password='{{ mysql_root_pass }}' --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check
   tags: pmm-client-mysql

@@ -65,7 +65,7 @@ start_pmm() {
 
     if run_docker inspect pmm-server >/dev/null; then
         run_docker stop pmm-server || :
-        run_docker stop pmm-server && run_docker rm pmm-server
+        run_docker stop pmm-server && run_docker rm pmm-server && run_docker rm pmm-data
     fi
 
     run_docker run -d \
