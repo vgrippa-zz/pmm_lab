@@ -31,7 +31,7 @@ mongo_admin_pass: percona
 mongodb_exporter_pass: percona
 
 # The password for MySQL root user
-mysql_root_pass: P$rC0nA!
+mysql_root_pass: P$rC0nA!Tutorial
 
 # PMM ip address
 pmm_ip_address: 10.0.0.1
