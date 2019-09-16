@@ -7,5 +7,5 @@
 
 
 - name: Configure PMM to monitor MySQL
-  shell: pmm-admin add mysql --host=localhost --username=pmm --password='{{ mysql_root_pass }}' --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check
+  shell: pmm-admin add mysql --username=pmm --password='{{ mysql_root_pass }}' --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check
   tags: pmm-client-mysql
