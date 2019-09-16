@@ -5,9 +5,9 @@
 - name: Create replication user
   mysql_user:
     login_user: root
-    login_password: {{ mysql_root_pass }}
+    login_password: "{{ mysql_root_pass }}"
     name: repl
-    password: {{ mysql_root_pass }}
+    password: "{{ mysql_root_pass }}"
     host: '10.0.0.%'
     priv: '*.*:REPLICATION SLAVE,REPLICATION CLIENT'
     state: present
