@@ -2,7 +2,7 @@
 # tasks file for provision/roles/pmm-client-mysql
 
 - name: Setup PMM agent
-    shell: pmm-admin config --server-insecure-tls "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}" --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
+  shell: pmm-admin config --server-insecure-tls "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}" --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
   tags: pmm-client-mysql
 
 
