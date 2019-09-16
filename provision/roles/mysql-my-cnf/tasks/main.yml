@@ -12,7 +12,7 @@
     block: |
       [client]
       user = root
-      password = {{ mysql_root_pass }}
+      password = "{{ mysql_root_pass }}"
 
 
 - name: Create .my.cnf for root
@@ -23,4 +23,4 @@
     block: |
       [client]
       user = root
-      password = {{ mysql_root_pass }}
+      password = "{{ mysql_root_pass }}"

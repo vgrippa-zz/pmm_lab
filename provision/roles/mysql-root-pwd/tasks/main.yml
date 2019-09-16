@@ -10,4 +10,4 @@
 # Update root password
 - name: Update MySQL root password
   run_once: true
-  shell: /usr/bin/mysql -uroot -p"{{ root_pwd.stdout_lines[0] }}" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_pass }}'"
+  shell: /usr/bin/mysql -uroot -p"{{ root_pwd.stdout_lines[0] }}" --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"{{ mysql_root_pass }}"'"
