@@ -28,6 +28,9 @@
       userstat = ON
       thread_statistics = ON
       validate_password_policy = LOW
+      sync_binlog=0
+      validate_password_length = 3
+      innodb_flush_log_at_trx_commit = 0
 
 - name: Setup MySQL's my.cnf (1/2)
   blockinfile:
