@@ -37,14 +37,14 @@ Vagrant.configure("2") do |config|
     server.vm.hostname = 'mysql-replica'
     server.vm.network :private_network, ip: '10.0.0.24'
   end
-##
-##  config.vm.define "app-server" do |server|
-##    server.vm.hostname = 'app-server'
-##    server.vm.network :private_network, ip: '10.0.0.12'
-##    server.vm.provider "virtualbox" do |v|
-##      v.cpus = 3
-##    end
-##  end
+
+  config.vm.define "app-server" do |server|
+    server.vm.hostname = 'app-server'
+    server.vm.network :private_network, ip: '10.0.0.12'
+    server.vm.provider "virtualbox" do |v|
+      v.cpus = 3
+    end
+  end
 
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
