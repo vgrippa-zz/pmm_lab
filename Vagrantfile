@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
     server.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", "2048"]
         vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
   config.vm.define "pxc-node2" do |server|
@@ -32,6 +33,7 @@ Vagrant.configure("2") do |config|
     server.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", "2048"]
         vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
   config.vm.define "pxc-node3" do |server|
@@ -40,6 +42,7 @@ Vagrant.configure("2") do |config|
     server.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", "2048"]
         vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
   config.vm.define "mysql-replica" do |server|
