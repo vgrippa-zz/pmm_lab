@@ -27,10 +27,10 @@
   postgresql_user:
     login_unix_socket: /tmp
     name: pmm
-    password: "{{ postgres_pmm_pass }}"
+    password: {{ postgres_pmm_pass }}
     encrypted: yes
     role_attr_flags: SUPERUSER
-  tags: pmm-client
+  tags: pmm-client-pg
 
 #- name: create schema PMM
 #  become_user: postgres

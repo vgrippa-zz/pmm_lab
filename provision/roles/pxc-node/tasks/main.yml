@@ -25,6 +25,7 @@
       default_storage_engine = InnoDB
       innodb_autoinc_lock_mode = 2
       pxc_strict_mode = permissive
+      wsrep_slave_threads = 1
 
 # Add userstat
 - name: Setup MySQL's my.cnf
@@ -37,6 +38,9 @@
       long_query_time = 0
       userstat = ON
       thread_statistics = ON
+      innodb_flush_log_at_trx_commit = 0
+      sync_binlog = 0
+      innodb_log_file_size = 2G
 
 # Start MySQL
 - name: Bootstrap cluster

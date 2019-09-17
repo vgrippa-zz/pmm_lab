@@ -48,6 +48,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "mysql-replica" do |server|
     server.vm.hostname = 'mysql-replica'
     server.vm.network :private_network, ip: '10.0.0.24'
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
   config.vm.define "app-server" do |server|

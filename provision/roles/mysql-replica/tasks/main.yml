@@ -31,6 +31,7 @@
       sync_binlog=0
       validate_password_length = 3
       innodb_flush_log_at_trx_commit = 0
+      innodb_log_file_size = 2G
 
 - name: Setup MySQL's my.cnf (1/2)
   blockinfile:
@@ -39,15 +40,6 @@
     #insertafter: '^\[mysqld\]'
     block: |
       !includedir /etc/percona-server.conf.d/
-
-# Add userstat
-#- name: Setup MySQL's my.cnf (1/2)
-#  lineinfile:
-#    #dest: /etc/my.cnf
-#    dest: /etc/percona-server.conf.d/mysqld_safe.cnf
-#    #regex: '^validate-password'
-#    #insertafter: '^\[mysqld_safe\]'
-#    line: validate-password = OFF
 
 
 # Restart MySQL
