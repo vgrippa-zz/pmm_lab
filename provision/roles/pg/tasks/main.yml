@@ -1,21 +1,21 @@
 ---
 # tasks file for provision/roles/pg
-- name: install repo for PostgreSQL 10
+- name: install repo for PostgreSQL 11
   yum:
-    name: https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+    name: https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm
     state: present
 
-- name: install PostgreSQL 10
+- name: install PostgreSQL 11
   yum:
-    name: ['postgresql10-server', 'postgresql10-contrib', 'python-psycopg2']
+    name: ['postgresql11-server', 'postgresql11-contrib', 'python-psycopg2']
     state: latest
 
 - name: create data cluster
-  command: /usr/pgsql-10/bin/postgresql-10-setup initdb
+  command: /usr/pgsql-11/bin/postgresql-11-setup initdb
 
 - name: start PostgreSQL
   service:
-    name: postgresql-10
+    name: postgresql-11
     state: started
     enabled: yes
 
@@ -31,7 +31,7 @@
 
 - name: add new configuration to "postgresql.conf"
   blockinfile:
-    dest: /var/lib/pgsql/10/data/postgresql.conf
+    dest: /var/lib/pgsql/11/data/postgresql.conf
     block: |
       include 'server.conf'
 
@@ -39,17 +39,17 @@
   become_user: postgres
   blockinfile:
     create: yes
-    dest: /var/lib/pgsql/10/data/server.conf
+    dest: /var/lib/pgsql/11/data/server.conf
     block: |
       listen_addresses = '*'
       wal_level = replica
       max_wal_senders = 6
-      wal_keep_segments = 10
+      wal_keep_segments = 11
       hot_standby = on
 
 - name: add new configuration to "pg_hba.conf"
   blockinfile:
-    dest: /var/lib/pgsql/10/data/pg_hba.conf
+    dest: /var/lib/pgsql/11/data/pg_hba.conf
     block: |
       host    all             all             0.0.0.0/0                md5
       host    replication     replicant       0.0.0.0/0                md5
@@ -59,9 +59,9 @@
     create: yes
     dest: /var/lib/pgsql/.pgsql_profile
     block: |
-      export PGHOST=/tmp PAGER=less PGDATA=/var/lib/pgsql/10/data
+      export PGHOST=/tmp PAGER=less PGDATA=/var/lib/pgsql/11/data
 
 - name: Restart PostgreSQL
   service:
-    name: postgresql-10
+    name: postgresql-11
     state: restarted

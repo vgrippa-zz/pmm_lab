@@ -10,12 +10,12 @@
     regexp: '^host  all  pmm'
     insertbefore: '^local   all             all'
     line: 'host  all  pmm  ::1/128  md5'
-    path: /var/lib/pgsql/10/data/pg_hba.conf
+    path: /var/lib/pgsql/11/data/pg_hba.conf
   tags: pmm-client-pg
 
 - name: Reload PostgreSQL
   service:
-    name: postgresql-10
+    name: postgresql-11
     state: reloaded
   tags: pmm-client-pg
 

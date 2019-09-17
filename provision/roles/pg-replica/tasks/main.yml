@@ -3,21 +3,21 @@
 
 - name: Stop PostgreSQL
   service:
-    name: postgresql-10
+    name: postgresql-11
     state: stopped
 
 - name: Reset data directory
-  shell: rm -fr /var/lib/pgsql/10/data/*
+  shell: rm -fr /var/lib/pgsql/11/data/*
 
 - name: Execute base backup
   become_user: postgres
-  shell: export PGPASSWORD="replicant" && /usr/bin/pg_basebackup -h 10.0.0.10 -U replicant -D /var/lib/pgsql/10/data -P -v 2>&1
+  shell: export PGPASSWORD="replicant" && /usr/bin/pg_basebackup -h 10.0.0.10 -U replicant -D /var/lib/pgsql/11/data -P -v 2>&1
 
 - name: add new configuration "recovery.conf"
   become_user: postgres
   blockinfile:
     create: yes
-    dest: /var/lib/pgsql/10/data/recovery.conf
+    dest: /var/lib/pgsql/11/data/recovery.conf
     block: |
       standby_mode = 'on'
       primary_conninfo = 'user=replicant password=replicant host=10.0.0.10 port=5432 sslmode=prefer'
@@ -25,6 +25,5 @@
 
 - name: Start PostgreSQL
   service:
-    name: postgresql-10
+    name: postgresql-11
     state: started
-
