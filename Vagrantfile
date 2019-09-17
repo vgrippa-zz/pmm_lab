@@ -21,26 +21,25 @@ Vagrant.configure("2") do |config|
   config.vm.define "pxc-node1" do |server|
     server.vm.hostname = 'pxc-node1'
     server.vm.network :private_network, ip: '10.0.0.21'
-    server.vm.provider "virtualbox" do |v|
-      v.cpus = 2
-      v.memory=2048
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
   config.vm.define "pxc-node2" do |server|
     server.vm.hostname = 'pxc-node2'
     server.vm.network :private_network, ip: '10.0.0.22'
-    server.vm.provider "virtualbox" do |v|
-      v.cpus = 2
-      v.memory=2048
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
   config.vm.define "pxc-node3" do |server|
     server.vm.hostname = 'pxc-node3'
     server.vm.network :private_network, ip: '10.0.0.23'
-    server.vm.provider "virtualbox" do |v|
-      v.cpus = 2
-      v.memory=2048
-    end
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
   end
 
   config.vm.define "mysql-replica" do |server|
