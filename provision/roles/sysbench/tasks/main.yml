@@ -1,11 +1,12 @@
 ---
 # tasks file for provision/roles/sysbench
-- name: Install Sysbench
+- name: Install Sysbench and Git
   yum:
     name:
       - sysbench
+      - git
     state: latest
-    
+
 - name: Get Sysbench-TPCC
   git:
     repo: 'https://github.com/Percona-Lab/sysbench-tpcc.git'
