@@ -2,13 +2,15 @@
 # tasks file for provision/roles/sysbench-mysql
 
 - name: Run sysbench-tpcc in 'prepare' mode
-  shell: "/usr/bin/env /usr/local/bin/sysbench tpcc.lua --mysql-host=10.0.0.21 --mysql-user=sysbench --mysql-password=sysbench --mysql-db=sysbench --time=240 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql prepare"
+  ignore_errors: true
+  shell: "/usr/bin/env /usr/local/bin/sysbench tpcc.lua --mysql-host=10.0.0.21 --mysql-user=sysbench --mysql-password=sysbench --mysql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql prepare"
   args:
     chdir: /opt/sysbench-tpcc
   tags: sysbench-mysql
 
 - name: "Configure sysbench-tpcc to run every 5 minutes for 4 minutes"
+  ignore_errors: true
   cron:
     minute: "*/5"
-    job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/local/bin/sysbench tpcc.lua --mysql-host=10.0.0.21 --mysql-user=sysbench --mysql-password=sysbench --mysql-db=sysbench --time=240 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/local/bin/sysbench tpcc.lua --mysql-host=10.0.0.21 --mysql-user=sysbench --mysql-password=sysbench --mysql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
   tags: sysbench-mysql

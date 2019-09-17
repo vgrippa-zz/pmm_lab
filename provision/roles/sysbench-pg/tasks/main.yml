@@ -2,13 +2,15 @@
 # tasks file for provision/roles/sysbench-pg
 
 - name: Run sysbench-tpcc in 'prepare' mode
-  shell: "/usr/bin/env /usr/local/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=pgsql prepare"
+  ignore_errors: true
+  shell: "/usr/bin/env /usr/local/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=10 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=pgsql prepare"
   args:
     chdir: /opt/sysbench-tpcc
   tags: sysbench-pg
 
 - name: "Configure sysbench-tpcc to run every 5 minutes for 4 minutes"
+  ignore_errors: true
   cron:
-    minute: "*/5"
+    minute: "*/3"
     job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/local/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
   tags: sysbench-pg
