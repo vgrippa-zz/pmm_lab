@@ -13,8 +13,8 @@
 ##    state: latest
 ##  tags: pmm-client
 
-- name: Enable Original Repo
-  shell: percona-release enable original
+#- name: Enable Original Repo
+#  shell: percona-release enable original
 
 - name: Install PMM 2 client package
   yum:
