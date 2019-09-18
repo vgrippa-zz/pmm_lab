@@ -1,17 +1,20 @@
 ---
 # tasks file for provision/roles/pmm-client
 
-- name: Disable Release Repo
-  shell: percona-release disable all
-
-- name: Enable Experimental Repo
-  shell: percona-release enable original experimental
+##- name: Disable Release Repo
+##  shell: percona-release disable all
+##
+##- name: Enable Experimental Repo
+##  shell: percona-release enable original experimental
 
 ##- name: Install PMM client package
 ##  yum:
 ##    name: ['pmm-client']
 ##    state: latest
 ##  tags: pmm-client
+
+- name: Enable Original Repo
+  shell: percona-release enable original
 
 - name: Install PMM 2 client package
   yum:
@@ -20,9 +23,9 @@
   tags: pmm2-client
 
 # Rolling back experimental packages
-- name: Disable Experimental Repo
-  shell: percona-release disable original experimental
-
-# Rolling back experimental packages and enabling original repo
-- name: Enable Original Repo
-  shell: percona-release enable original
+##- name: Disable Experimental Repo
+##  shell: percona-release disable original experimental
+##
+### Rolling back experimental packages and enabling original repo
+##- name: Enable Original Repo
+##  shell: percona-release enable original
