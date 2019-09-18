@@ -54,6 +54,18 @@
       host    all             all             0.0.0.0/0                md5
       host    replication     replicant       0.0.0.0/0                md5
 
+- name: clear ident and peer entries on "pg_hba.conf"
+  lineinfile:
+    dest: /var/lib/pgsql/11/data/pg_hba.conf
+    regexp: "ident"
+    state: absent
+
+- name: clear ident and peer entries on "pg_hba.conf"
+  lineinfile:
+    dest: /var/lib/pgsql/11/data/pg_hba.conf
+    regexp: "peer"
+    state: absent
+
 - name: update environment variables in UNIX account postgres
   blockinfile:
     create: yes
