@@ -51,7 +51,7 @@ run_docker() {
 
 
 start_pmm() {
-    run_docker pull percona/pmm-server:2.0
+    run_docker pull percona/pmm-server:2.0.0-rc4
 
     if ! run_docker inspect pmm-data >/dev/null; then
         run_docker create \
@@ -60,7 +60,7 @@ start_pmm() {
             -v /var/lib/mysql \
             -v /var/lib/grafana \
             --name pmm-data \
-            percona/pmm-server:2.0 /bin/true
+            percona/pmm-server:2.0.0-rc4 /bin/true
     fi
 
     if run_docker inspect pmm-server >/dev/null; then
@@ -74,7 +74,7 @@ start_pmm() {
         --volumes-from pmm-data \
         --name pmm-server \
         --restart always \
-        percona/pmm-server:2.0
+        percona/pmm-server:2.0.0-rc4
 }
 
 main() {
