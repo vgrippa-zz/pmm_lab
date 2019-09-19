@@ -1,8 +1,10 @@
+{% for host in groups['replication_servers'] %}
 rs.initiate({
-    _id: "{{ inventory_hostname }}",
+    _id: mongo1,
     version: 1,
     members: [
-       { _id: 0, host : "{{ inventory_hostname }}:{{ mongod_port }}" }
+       { _id: 0, host : "mongo1:{{ mongod_port }}", priority: 2 }
        ]
 })
 sleep(3000)
+{% endfor %}
