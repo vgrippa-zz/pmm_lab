@@ -3,9 +3,9 @@
 
 Vagrant.configure("2") do |config|
 
-##  config.vm.box = "centos/7"
-##  config.ssh.forward_agent = true
-##  config.ssh.insert_key = false
+  config.vm.box = "centos/7"
+  config.ssh.forward_agent = true
+  config.ssh.insert_key = false
 ############### Postgres ######################
 ##  config.vm.define "pg-master" do |server|
 ##    server.vm.hostname = 'pg-master'
