@@ -108,15 +108,15 @@
 - name: Create the file to initialize the mongod replica set
   become: true
   template: src=repset_init.j2 dest=/tmp/repset_init{{ mongod_port }}.js owner=mongod group=mongod
+  delegate_to: '{{ item }}'
+  with_items: "{{ groups['replication_servers'] }}"
   ignore_errors: yes
-  when: ("{{ inventory_hostname }}" == "mongo1")
 
 - name: Initialize the replication set
   shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_init{{ mongod_port }}.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['replication_servers'] }}"
   ignore_errors: yes
-  when: ("{{ inventory_hostname }}" == "mongo1")
 
  ## Deploy MongoDB add node script and execute it
 
