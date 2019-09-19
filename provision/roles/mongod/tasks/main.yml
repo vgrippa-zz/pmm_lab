@@ -108,8 +108,6 @@
 - name: Create the file to initialize the mongod replica set
   become: true
   template: src=repset_init.j2 dest=/tmp/repset_init{{ mongod_port }}.js owner=mongod group=mongod
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['replication_servers'] }}"
   ignore_errors: yes
   when: ("{{ inventory_hostname }}" == "mongo1")
 

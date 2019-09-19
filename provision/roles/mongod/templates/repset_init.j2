@@ -1,9 +1,9 @@
-{% for host in groups['replication_servers'] %}
+{% for ports in mongod_ports %}
 rs.initiate({
     _id: mongo1,
     version: 1,
     members: [
-       { _id: 0, host : "mongo1:{{ mongod_port }}", priority: 2 }
+       { _id: 0, host : "mongo1:{{ ports }}", priority: 2 }
        ]
 })
 sleep(3000)
