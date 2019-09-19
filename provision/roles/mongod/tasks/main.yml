@@ -111,14 +111,14 @@
   delegate_to: '{{ item }}'
   with_items: "{{ groups['replication_servers'] }}"
   ignore_errors: yes
-  when: ("{{ hostname }}" == "mongo1")
+  when: ("{{ inventory_hostname }}" == "mongo1")
 
 - name: Initialize the replication set
   shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_init{{ mongod_port }}.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['replication_servers'] }}"
   ignore_errors: yes
-  when: ("{{ hostname }}" == "mongo1")
+  when: ("{{ inventory_hostname }}" == "mongo1")
 
  ## Deploy MongoDB add node script and execute it
 
