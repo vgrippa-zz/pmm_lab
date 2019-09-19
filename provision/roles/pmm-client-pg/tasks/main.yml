@@ -21,5 +21,5 @@
 
 - name: Configure PMM to monitor PostgreSQL
   ignore_errors: true
-  shell: pmm-admin add postgresql --username=pmm --password='{{ postgres_pmm_pass }}' --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check --server-insecure-tls localhost:5432
+  shell: pmm-admin add postgresql --username=pmm --password='{{ postgres_pmm_pass }}' --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --skip-connection-check --server-insecure-tls {{ inventory_hostname }} localhost:5432
   tags: pmm-client-pg
