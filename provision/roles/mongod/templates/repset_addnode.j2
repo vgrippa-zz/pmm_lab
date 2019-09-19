@@ -1,8 +1,8 @@
 {% for host in groups['replication_servers'] %}
-    {% if "{{ host }}" == 'mongo1' %}
-       rs.add("{{ host }}:{{ mongod_port }}", priority: 2})
+    {% if [% host %] == 'mongo1' %}
+    rs.add("{{ host }}:{{ mongod_port }}", priority: 2)
     {% else %}
-       rs.add("{{ host }}:{{ mongod_port }}", priority: 0})
+    rs.add("{{ host }}:{{ mongod_port }}", priority: 0)
     {% endif %}
    sleep(5000)
 {% endfor %}
