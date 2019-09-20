@@ -33,7 +33,7 @@
   tags: pmm-client-mongo
 
 - name: Create user
-  shell: /usr/bin/mongo  localhost:{{ pmm_client_servers.mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/create_user.js
+  shell: /usr/bin/mongo  localhost:{{ item.mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/create_user.js
   delegate_to: '{{ item }}'
   with_items: "{{ groups['pmm_client_servers'] }}"
   tags: pmm-client-mongo
