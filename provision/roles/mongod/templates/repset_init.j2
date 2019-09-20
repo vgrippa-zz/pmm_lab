@@ -3,7 +3,7 @@ rs.initiate({
     _id: "{{ inventory_hostname }}",
     version: 1,
     members: [
-       { _id: 0, host : "{{ inventory_hostname }}:{{ ports }}" }
+       { _id: 0, host : ""{{ inventory_hostname }}":"{{ ports }}"" }
        ]
 })
 {% endfor %}
