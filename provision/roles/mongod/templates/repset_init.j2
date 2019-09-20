@@ -1,10 +1,8 @@
-{% for ports in mongod_ports %}
 rs.initiate({
     _id: "{{ inventory_hostname }}",
     version: 1,
     members: [
-       { _id: 0, host : "{{ inventory_hostname }}":"{{ ports }}" }
+       { _id: 0, host : "{{ inventory_hostname }}":"{{ item }}" }
        ]
 })
-{% endfor %}
 sleep(3000)
