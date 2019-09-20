@@ -1,4 +1,4 @@
-{% for ports in "{{ mongod_ports }}" %}
+{% for ports in mongod_ports %}
 rs.initiate({
     _id: "{{ inventory_hostname }}",
     version: 1,
