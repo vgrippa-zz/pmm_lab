@@ -34,7 +34,6 @@
 
 - name: Create user
   shell: /usr/bin/mongo  localhost:{{ item }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/create_user.js
-  delegate_to: '{{ item }}'
   with_items: "{{ mongod_ports }}"
   tags: pmm-client-mongo
 
