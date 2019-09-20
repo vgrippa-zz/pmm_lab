@@ -33,9 +33,9 @@
   tags: pmm-client-mongo
 
 - name: Create user
-  shell: /usr/bin/mongo  localhost:{{ item.mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/create_user.js
+  shell: /usr/bin/mongo  localhost:{{ item }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/create_user.js
   delegate_to: '{{ item }}'
-  with_items: "{{ groups['pmm_client_servers'] }}"
+  with_items: "{{ groups['pmm_client_servers'][1] }}"
   tags: pmm-client-mongo
 
 - name: Configure PMM to monitor MongoDB
