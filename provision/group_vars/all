@@ -45,4 +45,4 @@ pmm_ip_address: 10.0.0.1
 # The password for the pmm user Postgres
 postgres_pmm_pass: PErC0nATutorial
 
-mongod_ports: [2700,2701,2702]
+mongod_ports: ["2700","2701","2702"]
