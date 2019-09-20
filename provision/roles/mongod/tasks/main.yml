@@ -117,6 +117,7 @@
   with_items: "{{ mongod_ports }}"
   tags: pmm-client-mongo
   ignore_errors: yes
+  when: ("{{ inventory_hostname }}" == "mongo1")
 
  ## Deploy MongoDB add node script and execute it
 
