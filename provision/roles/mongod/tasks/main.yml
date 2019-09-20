@@ -124,8 +124,10 @@
 - name: Create the add node file
   become: true
   template: src=repset_addnode.j2 dest=/tmp/repset_addnode{{ mongod_port }}.js owner=mongod group=mongod
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['replication_servers'] }}"
+  with_items: "{{ mongod_ports }}"
+  tags: pmm-client-mongo
+  ignore_errors: yes
+  when: ("{{ inventory_hostname }}" == "mongo1")
 
 - name: Add nodes to the replica set
   shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_addnode{{ mongod_port }}.js

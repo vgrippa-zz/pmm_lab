@@ -1,9 +1,5 @@
 {% for host in groups['replication_servers'] %}
-    {% if  host == 'mongo1' %}
     rs.add("{{ host }}:{{ mongod_port }}")
-    {% else %}
-    rs.add("{{ host }}:{{ mongod_port }}")
-    {% endif %}
    sleep(5000)
 {% endfor %}
 printjson(rs.status())
