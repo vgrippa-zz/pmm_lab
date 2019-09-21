@@ -124,7 +124,7 @@
 
 - name: Create the add node file
   become: true
-  template: src=repset_addnode.j2 dest=/tmp/repset_addnode{{ mongod_port }}.js owner=mongod group=mongod
+  template: src=repset_addnode.j2 dest=/tmp/repset_addnode{{ item }}.js owner=mongod group=mongod
   with_items: "{{ mongod_ports }}"
   tags: pmm-client-mongo
   ignore_errors: yes
