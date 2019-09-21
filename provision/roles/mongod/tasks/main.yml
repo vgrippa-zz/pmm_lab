@@ -116,8 +116,8 @@
   shell: /usr/bin/mongo  localhost:{{ item }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_init{{ item }}.js
   with_items: "{{ mongod_ports }}"
   tags: pmm-client-mongo
-  ignore_errors: yes
   when: ("{{ inventory_hostname }}" == "mongo1")
+  ignore_errors: yes
 
  ## Deploy MongoDB add node script and execute it
 
@@ -130,6 +130,8 @@
   when: ("{{ inventory_hostname }}" == "mongo1")
 
 - name: Add nodes to the replica set
-  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_addnode{{ mongod_port }}.js
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['replication_servers'] }}"
+  shell: /usr/bin/mongo  localhost:{{ item }}/admin -uadmin -p{{ mongo_admin_pass }}  /tmp/repset_addnode{{ item }}.js
+  with_items: "{{ mongod_ports }}"
+  tags: pmm-client-mongo
+  ignore_errors: yes
+  when: ("{{ inventory_hostname }}" == "mongo1")
