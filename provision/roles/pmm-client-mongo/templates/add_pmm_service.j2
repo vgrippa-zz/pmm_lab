@@ -1,3 +1,1 @@
-{% for host in groups['pmm_client_servers'] %}
-  pmm-admin add mongodb --username=mongodb_exporter --password={{ mongodb_exporter_pass }} --use-profiler --cluster MongoCluster mongo_{{ hostvars[host]['mongod_port'] }}  localhost:{{ hostvars[host]['mongod_port'] }}
-{% endfor %}
+pmm-admin add mongodb --username=mongodb_exporter --password={{ mongodb_exporter_pass }} --use-profiler --cluster MongoCluster {{ inventory_hostname }}_{{ item }}  localhost:{{ item }}

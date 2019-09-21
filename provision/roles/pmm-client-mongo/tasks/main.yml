@@ -14,10 +14,10 @@
 
 - name: Create the file to add PMM service
   become: true
-  template: src=add_pmm_service.j2 dest=/tmp/add_pmm_service{{ mongod_port }}.sh owner=mongod group=mongod
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['pmm_client_servers'] }}"
+  template: src=add_pmm_service.j2 dest=/tmp/add_pmm_service{{ item }}.sh owner=mongod group=mongod
+  with_items: "{{ mongod_ports }}"
   tags: pmm-client-mongo
+  ignore_errors: yes
 
 - name: Create the file to set the profiling on all mongod servers
   template: src=set_profiling.j2 dest=/tmp/set_profiling.js
