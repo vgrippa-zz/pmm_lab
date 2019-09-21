@@ -1,4 +1,4 @@
-{% if  "{{ inventory_hostname }}" == 'mongo1' %}
+{% if  {{ item }} == '2700' %}
 rs.initiate({
     _id: "mongo1",
     version: 1,
@@ -8,7 +8,7 @@ rs.initiate({
 })
 sleep(3000)
 {% endif %}
-{% if  "{{ inventory_hostname }}" == 'mongo2' %}
+{% if  {{ item }} == '2701' %}
 rs.initiate({
     _id: "mongo2",
     version: 1,
@@ -18,7 +18,7 @@ rs.initiate({
 })
 sleep(3000)
 {% endif %}
-{% if  "{{ inventory_hostname }}" == 'mongo3' %}
+{% if  {{ item }} == '2702' %}
 rs.initiate({
     _id: "mongo3",
     version: 1,
