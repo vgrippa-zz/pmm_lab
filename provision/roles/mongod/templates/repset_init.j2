@@ -13,7 +13,7 @@ rs.initiate({
     _id: "mongo2",
     version: 1,
     members: [
-       { _id: 0, host : "mongo2:{{ item }}" }
+       { _id: 0, host : "mongo1:{{ item }}" }
        ]
 })
 sleep(3000)
@@ -23,7 +23,7 @@ rs.initiate({
     _id: "mongo3",
     version: 1,
     members: [
-       { _id: 0, host : "mongo3:{{ item }}" }
+       { _id: 0, host : "mongo1:{{ item }}" }
        ]
 })
 sleep(3000)
