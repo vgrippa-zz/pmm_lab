@@ -1,32 +1,30 @@
-{% for ports in {{ mongod_ports }} %}
-{% if  host == 'mongo1' %}
+{% if  {{ inventory_hostname }} == 'mongo1' %}
 rs.initiate({
     _id: "mongo1",
     version: 1,
     members: [
-       { _id: 0, host : "mongo1:{{ mongod_port }}" }
+       { _id: 0, host : "mongo1:{{ item }}" }
        ]
 })
 sleep(3000)
 {% endif %}
-{% if  host == 'mongo2' %}
+{% if  {{ inventory_hostname }} == 'mongo2' %}
 rs.initiate({
     _id: "mongo2",
     version: 1,
     members: [
-       { _id: 0, host : "mongo2:{{ mongod_port }}" }
+       { _id: 0, host : "mongo2:{{ item }}" }
        ]
 })
 sleep(3000)
 {% endif %}
-{% if  host == 'mongo3' %}
+{% if  {{ inventory_hostname }} == 'mongo3' %}
 rs.initiate({
     _id: "mongo3",
     version: 1,
     members: [
-       { _id: 0, host : "mongo3:{{ mongod_port }}" }
+       { _id: 0, host : "mongo3:{{ item }}" }
        ]
 })
 sleep(3000)
 {% endif %}
-sleep(3000)
