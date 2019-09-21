@@ -1,10 +1,32 @@
-{% for host in groups['replication_servers'] %}
+{% for ports in {{ mongod_ports }} %}
+{% if  host == 'mongo1' %}
 rs.initiate({
-    _id: "{{ host }}",
+    _id: "mongo1",
     version: 1,
     members: [
-       { _id: 0, host : "{{ host }}:{{ item }}" }
+       { _id: 0, host : "mongo1:{{ mongod_port }}" }
        ]
 })
 sleep(3000)
-{% endfor %}
+{% endif %}
+{% if  host == 'mongo2' %}
+rs.initiate({
+    _id: "mongo2",
+    version: 1,
+    members: [
+       { _id: 0, host : "mongo2:{{ mongod_port }}" }
+       ]
+})
+sleep(3000)
+{% endif %}
+{% if  host == 'mongo3' %}
+rs.initiate({
+    _id: "mongo3",
+    version: 1,
+    members: [
+       { _id: 0, host : "mongo3:{{ mongod_port }}" }
+       ]
+})
+sleep(3000)
+{% endif %}
+sleep(3000)
