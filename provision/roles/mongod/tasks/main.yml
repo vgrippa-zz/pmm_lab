@@ -68,9 +68,10 @@
   pause: seconds=5
 
 - name: Create user
-  shell: /usr/bin/mongo  localhost:{{ mongod_port }}/admin  /tmp/create_user.js
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['replication_servers'] }}"
+  shell: /usr/bin/mongo  localhost:{{ item }}/admin  /tmp/create_user.js
+  with_items: "{{ mongod_ports }}"
+  when: ("{{ inventory_hostname }}" == "mongo1")
+  ignore_errors: yes
 
   ## Start MongoDB with security
 
