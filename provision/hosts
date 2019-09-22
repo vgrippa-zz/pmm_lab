@@ -2,6 +2,22 @@
 [all:vars]
 ansible_user=vagrant
 
+# Postgres
+[postgres]
+pg-master
+pg-replica
+
+# MySQL
+[mysql]
+pxc-node1
+pxc-node2
+pxc-node3
+mysql-replica
+
+# Extra
+[extra]
+app-server
+
 # the mongo servers need a mongod_port variable set, and they must not conflict.
 [mongo_servers]
 mongo1 mongod_port=2700
