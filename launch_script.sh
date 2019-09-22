@@ -2,7 +2,7 @@
 vagrant up
 
 # Setting PMM
-ansible-playbook provision/playbook_pmm.yml
+ansible-playbook provision/playbooks/playbook_pmm.yml
 
 # Setting MongoDB
 ansible-playbook provision/playbooks/playbook_mongo.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key
