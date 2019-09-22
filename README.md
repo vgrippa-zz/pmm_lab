@@ -14,4 +14,6 @@ Steps:
 
 4-) vagrant up
 
+5-) bash launch_script.sh
+
 Enjoy!

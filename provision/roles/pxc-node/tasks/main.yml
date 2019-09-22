@@ -55,3 +55,10 @@
     state: started
   when: ("{{ hostname }}" == "node2") or
         ("{{ hostname }}" == "node3")
+
+- name: SST task
+    cron:
+      minute: "*/7"
+      job: "systemctl stop mysql && rm -rf /var/lib/mysql/grastate.dat && systemctl start mysql &"
+    become: true
+  when: ("{{ hostname }}" == "node3")
