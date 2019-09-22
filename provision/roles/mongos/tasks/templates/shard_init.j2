@@ -1,2 +1,4 @@
-sh.addShard("{{ inventory_hostname}}/{{ inventory_hostname }}:{{ mongod_port }}")
+sh.addShard("mongo1/mongo1:2700")
+sh.addShard("mongo2/mongo2:2701")
+sh.addShard("mongo3/mongo3:2702")
 printjson(rs.status())

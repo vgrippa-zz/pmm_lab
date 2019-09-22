@@ -33,15 +33,14 @@
   template: src=enablesharding.j2 dest=/tmp/enablesharding.js owner=mongod group=mongod
 
 - name: Create the file to initialize the mongod Shard
-  template: src=shard_init.j2 dest=/tmp/shard_init_{{ inventory_hostname }}.js mode=0655 owner=mongod group=mongod
+  template: src=shard_init.j2 dest=/tmp/shard_init.js mode=0655 owner=mongod group=mongod
+  when: ("{{ inventory_hostname }}" == "mongo1")
   become: true
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['mongo_servers'] }}"
 
 - name: Add the shard to the mongos
-  shell: /usr/bin/mongo localhost:{{ mongos_port }}/admin -u admin -p {{ mongo_admin_pass }} /tmp/shard_init_{{ inventory_hostname }}.js
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['mongos_servers'] }}"
+  shell: /usr/bin/mongo localhost:{{ mongos_port }}/admin -u admin -p {{ mongo_admin_pass }} /tmp/shard_init.js
+  when: ("{{ inventory_hostname }}" == "mongo1")
+  become: true
 
 
 ########### Read/Write test
