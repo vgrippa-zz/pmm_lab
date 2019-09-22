@@ -1,8 +1,6 @@
 ---
 - name: Setup PMM agent
-  shell: pmm-admin config --server-insecure-tls "{{ hostvars[item]['ansible_eth1']['ipv4']['address'] }}" --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
-  delegate_to: '{{ item }}'
-  with_items: "{{ groups['pmm_client_servers'] }}"
+  shell: pmm-admin config --server-insecure-tls "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}" --server-url=https://admin:admin@{{ pmm_ip_address }}:443/ --force
   tags: pmm-client-mongo
 
   # tasks file for provision/roles/pmm-client-mongo
