@@ -1,0 +1,23 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: true
+  roles:
+  - common
+  - pmm-client
+
+- hosts: pg-master
+  gather_facts: yes
+  become: true
+  roles:
+    - pg
+    - pg-master
+    - pmm-client-pg
+
+- hosts: pg-replica
+  gather_facts: yes
+  become: true
+  roles:
+    - pg
+    - pg-replica
+    - pmm-client-pg

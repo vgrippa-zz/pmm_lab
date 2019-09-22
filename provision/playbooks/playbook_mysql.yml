@@ -6,30 +6,6 @@
   - common
   - pmm-client
 
-- hosts: pg-master
-  gather_facts: yes
-  become: true
-  roles:
-    - pg
-    - pg-master
-    - pmm-client-pg
-
-- hosts: pg-replica
-  gather_facts: yes
-  become: true
-  roles:
-    - pg
-    - pg-replica
-    - pmm-client-pg
-
-- hosts: app-server
-  gather_facts: yes
-  become: true
-  roles:
-    - sysbench
-    - sysbench-pg
-    - sysbench-mysql
-
 - hosts: pxc-node1
   vars:
     hostname: 'node1'

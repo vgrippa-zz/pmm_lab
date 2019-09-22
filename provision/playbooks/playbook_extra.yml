@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: true
+  roles:
+  - common
+  - pmm-client
+
+- hosts: app-server
+  gather_facts: yes
+  become: true
+  roles:
+    - sysbench
+    - sysbench-pg
+    - sysbench-mysql

@@ -62,11 +62,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "provision/playbook_mysql.yml"
-  end
-
 ############ MongoDB ######################
   N = 3
   (1..N).each do |machine_id|
@@ -77,17 +72,6 @@ Vagrant.configure("2") do |config|
           vb.customize ["modifyvm", :id, "--memory", "2048"]
           vb.customize ["modifyvm", :id, "--cpus", "2"]
 
-      # Only execute once the Ansible provisioner,
-      # when all the machines are up and ready.
-      if machine_id == N
-        machine.vm.provision :ansible do |ansible|
-          # Disable default limit to connect to all the machines
-          ansible.limit = "all"
-          ansible.verbose = "v"
-          ansible.playbook = "provision/playbook_mongo.yml"
-          ansible.inventory_path = "provision/hosts"
-          end
-        end
       end
     end
   end
