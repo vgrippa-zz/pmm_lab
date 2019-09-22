@@ -19,7 +19,7 @@
   roles:
   - role: mongos
 
-- hosts: mongo_servers
+- hosts: mongos_servers
   gather_facts: yes
   become: true
   tasks:
