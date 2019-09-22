@@ -1,3 +1,6 @@
+# spinning VMS
+vagrant up
+
 # Setting PMM
 ansible-playbook provision/playbook_pmm.yml
 
