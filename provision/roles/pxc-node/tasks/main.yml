@@ -59,6 +59,6 @@
 - name: "SST task"
   cron:
     minute: "*/5"
-      job: "systemctl stop mysql && rm -rf /var/lib/mysql/grastate.dat && systemctl start mysql &"
+    job: "systemctl stop mysql && rm -rf /var/lib/mysql/grastate.dat && systemctl start mysql &"
   become: true
   when: ("{{ hostname }}" == "node3")
