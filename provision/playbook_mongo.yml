@@ -19,11 +19,11 @@
   roles:
   - role: mongos
 
-#- hosts: mongo_servers
-#  gather_facts: yes
-#  become: true
-#  tasks:
-#  - import_tasks: roles/mongod/tasks/shards.yml
+- hosts: mongo_servers
+  gather_facts: yes
+  become: true
+  tasks:
+  - import_tasks: roles/mongod/tasks/shards.yml
 
 - hosts: pmm_client_servers
   gather_facts: yes
