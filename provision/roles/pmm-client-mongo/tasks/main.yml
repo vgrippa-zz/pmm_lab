@@ -19,8 +19,7 @@
 
 - name: Create the file to add PMM service mongos
   become: true
-  template: src=add_pmm_service.j2 dest=/tmp/add_pmm_service{{ item }}.sh owner=mongod group=mongod
-  with_items: "{{ mongos_ports }}"
+  template: src=add_pmm_service.j2 dest=/tmp/add_pmm_service{{ mongos_ports }}.sh owner=mongod group=mongod
   tags: pmm-client-mongo
   ignore_errors: yes
 
