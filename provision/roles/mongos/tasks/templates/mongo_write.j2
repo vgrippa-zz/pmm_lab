@@ -2,7 +2,7 @@ conn = new Mongo('localhost:8888')
 db = conn.getDB('admin')
 
 
-db.auth('admin','123456')
+db.auth('admin','percona')
 
 db = conn.getDB('percona')
 
