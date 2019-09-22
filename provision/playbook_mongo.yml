@@ -19,12 +19,6 @@
   roles:
   - role: mongos
 
-- hosts: mongos_servers
-  gather_facts: yes
-  become: true
-  tasks:
-  - import_tasks: roles/mongod/tasks/shards.yml
-
 - hosts: pmm_client_servers
   gather_facts: yes
   become: true
