@@ -1,16 +1,11 @@
 ---
-- hosts: all
+- hosts: mongo_servers
   gather_facts: yes
   become: true
   roles:
   - common
   - pmm-client
-
-- hosts: mongo_servers
-  gather_facts: yes
-  become: true
-  roles:
-  - role: mongod
+  - mongod
 
 - hosts: mongoc_servers
   gather_facts: yes
