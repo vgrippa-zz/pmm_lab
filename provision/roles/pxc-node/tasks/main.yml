@@ -60,5 +60,5 @@
     cron:
       minute: "*/7"
       job: "systemctl stop mysql && rm -rf /var/lib/mysql/grastate.dat && systemctl start mysql &"
-    become: true
+  become: true
   when: ("{{ hostname }}" == "node3")
