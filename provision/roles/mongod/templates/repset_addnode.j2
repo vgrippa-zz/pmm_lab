@@ -1,5 +1,5 @@
 {% for host in groups['replication_servers'] %}
-    rs.add("{{ host }}:{{ mongod_port }}")
+    rs.add("{{ host }}:{{ item }}")
    sleep(5000)
 {% endfor %}
 printjson(rs.status())
