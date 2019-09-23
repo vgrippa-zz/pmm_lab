@@ -56,16 +56,6 @@
   when: ("{{ hostname }}" == "node2") or
         ("{{ hostname }}" == "node3")
 
-- name: ProxySQL monitor user
-  mysql_user:
-    login_user: root
-    login_password: "{{ mysql_root_pass }}"
-    name: monitor
-    password: "{{ mysql_monitor_pass }}"
-    priv: '*.*:SELECT'
-    state: present
-  when: ("{{ hostname }}" == "node1")
-
 - name: "SST task"
   cron:
     minute: "*/20"

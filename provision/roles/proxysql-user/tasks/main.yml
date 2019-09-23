@@ -1,0 +1,21 @@
+---
+- name: ProxySQL monitor user
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_pass }}"
+    name: monitor
+    password: "{{ mysql_monitor_pass }}"
+    priv: '*.*:SELECT'
+    state: present
+  when: ("{{ hostname }}" == "node1")
+
+
+- name: ProxySQL user
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_pass }}"
+    name: app
+    password: "{{ mysql_app_pass }}"
+    priv: '*.*:ALL PRIVILEGES'
+    state: present
+  when: ("{{ hostname }}" == "node1")

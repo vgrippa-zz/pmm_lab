@@ -21,6 +21,7 @@
     - mysql-replication-user
     - pmm-client-mysql
     - mysql-sysbench
+    - proxysql-user
 
 - hosts: pxc-node2
   vars:
