@@ -61,5 +61,5 @@
   with_items: "{{ mongos_port }}"
   tags: pmm-client-mongo
   when: ("{{ inventory_hostname }}" == "mongo1") or
-        ("{{ hostname }}" == "mongo3")
+        ("{{ inventory_hostname }}" == "mongo3")
   ignore_errors: yes
