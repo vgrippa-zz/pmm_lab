@@ -46,3 +46,5 @@ pmm_ip_address: 10.0.0.1
 postgres_pmm_pass: PErC0nATutorial
 
 mongod_ports: ["2700","2701","2702"]
+
+mysql_monitor_pass: monitor

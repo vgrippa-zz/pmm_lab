@@ -5,13 +5,13 @@ vagrant up
 nohup ansible-playbook provision/playbook_pmm.yml &
 
 # Setting MongoDB
-nohup ansible-playbook provision/playbook_mongo.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key &
+nohup sleep 94; ansible-playbook provision/playbook_mongo.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key &
 
 # Setting MySQL
-nohup ansible-playbook provision/playbook_mysql.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key &
+nohup sleep 63; ansible-playbook provision/playbook_mysql.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key &
 
 # Setting Postgres
-nohup ansible-playbook provision/playbook_postgres.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key &
+nohup sleep 55; ansible-playbook provision/playbook_postgres.yml -i provision/hosts  --key-file /root/.vagrant.d/insecure_private_key &
 
 # Setting App Server
 # Sleeping a few minutes to wait for MySQL and Postgres get ready
