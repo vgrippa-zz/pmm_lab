@@ -1,2 +1,2 @@
 sleep $(($RANDOM%50+10));
-cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=4 --tables=3 --scale=0.5 --use_fk=0 --trx_level=RC --db-driver=mysql run
+cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=5 --threads=4 --tables=3 --scale=0.5 --use_fk=0 --trx_level=RC --db-driver=mysql run

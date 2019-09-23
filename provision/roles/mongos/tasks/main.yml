@@ -51,10 +51,10 @@
   template: src=mongo_read.j2 dest=/tmp/mongo_read.js owner=mongod group=mongod
 
 - name: copy the file to schedule the cron job for writes
-  template: src=cron_mongo_write.j2 dest=/tmp/cron_mongo_write.js owner=mongod group=mongod
+  template: src=cron_mongo_write.j2 dest=/tmp/cron_mongo_write.sh owner=mongod group=mongod
 
 - name: copy the file to schedule the cron job for reads
-  template: src=cron_mongo_read.j2 dest=/tmp/cron_mongo_read.js owner=mongod group=mongod
+  template: src=cron_mongo_read.j2 dest=/tmp/cron_mongo_read.sh owner=mongod group=mongod
 
 - name: "Configure write to run every 2 minute"
   cron:
@@ -68,7 +68,7 @@
 - name: "Configure read to run every 1 minute"
   cron:
     minute: "*/1"
-    job: "bash /tmp/cron_mongo_read.js"
+    job: "bash /tmp/cron_mongo_read.sh"
   become: true
   delegate_to: '{{ item }}'
   with_items: "{{ groups['mongos_servers'] }}"
