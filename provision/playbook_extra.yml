@@ -14,3 +14,4 @@
     - sysbench-pg
     - sysbench-mysql
     - proxysql
+    - pmm-client-proxysql
