@@ -15,3 +15,11 @@
     name: proxysql
     state: started
     enabled: yes
+
+- name: Create the ProxySQL config file
+  template: src=config_proxysql.j2 dest=/tmp/config_proxysql.sql
+  become: true
+
+- name: Set Proxysql
+  shell: mysql -uadmin -padmin -h 127.0.0.1 -P 6032 < /tmp/config_proxysql.sql
+  become: true

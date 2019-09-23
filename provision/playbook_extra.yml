@@ -13,3 +13,4 @@
     - sysbench
     - sysbench-pg
     - sysbench-mysql
+    - proxysql
