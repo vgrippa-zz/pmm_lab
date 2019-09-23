@@ -4,16 +4,19 @@
   yum:
     name: https://github.com/sysown/proxysql/releases/download/v2.0.6/proxysql-2.0.6-1-centos7.x86_64.rpm
     state: present
+  become: true
 
 - name: Install ProxySQL 2.0
   yum:
     name: proxysql2
     state: present
+  become: true
 
 - name: Install MySQL Client
   yum:
     name: ['Percona-Server-client-57']
     state: latest
+  become: true
 
 - name: start ProxySQL
   service:
