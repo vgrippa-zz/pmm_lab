@@ -10,11 +10,19 @@ Vagrant.configure("2") do |config|
   config.vm.define "pg-master" do |server|
     server.vm.hostname = 'pg-master'
     server.vm.network :private_network, ip: '10.0.0.10'
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
   config.vm.define "pg-replica" do |server|
     server.vm.hostname = 'pg-replica'
     server.vm.network :private_network, ip: '10.0.0.11'
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
 ############# MySQL ######################
@@ -57,8 +65,9 @@ Vagrant.configure("2") do |config|
   config.vm.define "app-server" do |server|
     server.vm.hostname = 'app-server'
     server.vm.network :private_network, ip: '10.0.0.12'
-    server.vm.provider "virtualbox" do |v|
-      v.cpus = 3
+    server.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.customize ["modifyvm", :id, "--cpus", "3"]
     end
   end
 
