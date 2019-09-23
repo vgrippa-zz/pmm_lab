@@ -17,5 +17,6 @@
     name: app
     password: "{{ mysql_app_pass }}"
     priv: '*.*:ALL PRIVILEGES'
+    host: '%'
     state: present
   when: ("{{ hostname }}" == "node1")
