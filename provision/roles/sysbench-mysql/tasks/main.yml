@@ -8,23 +8,43 @@
     chdir: /opt/sysbench-tpcc
   tags: sysbench-mysql
 
-- name: "Configure sysbench-tpcc to run every 5 minutes"
+## Deploy MySQL sysbench load file
+- name: Create the user file1
+  become: true
+  template: src=load1.j2 dest=/tmp/load1.sh
+
+- name: Create the user file2
+  become: true
+  template: src=load2.j2 dest=/tmp/load2.sh
+
+- name: Create the user file3
+  become: true
+  template: src=load3.j2 dest=/tmp/load3.sh
+
+- name: "Configure sysbench-tpcc load1"
   ignore_errors: true
   cron:
     minute: "*/3"
-    job: "sleep $(($RANDOM%40+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "bash /tmp/load1.sh"
   tags: sysbench-mysql
 
-- name: "Configure sysbench-tpcc to run every 5 minutes"
+- name: "Configure sysbench-tpcc load1"
   ignore_errors: true
   cron:
     minute: "*/4"
-    job: "sleep $(($RANDOM%20+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=2 --tables=2 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "bash /tmp/load1.sh"
   tags: sysbench-mysql
 
-- name: "Configure sysbench-tpcc to run every 5 minutes"
+- name: "Configure sysbench-tpcc load2"
   ignore_errors: true
   cron:
     minute: "*/5"
-    job: "sleep $(($RANDOM%50+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=4 --tables=3 --scale=0.5 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "bash /tmp/load2.sh"
+  tags: sysbench-mysql
+
+- name: "Configure sysbench-tpcc load3"
+  ignore_errors: true
+  cron:
+    minute: "*/7"
+    job: "bash /tmp/load3.sh"
   tags: sysbench-mysql
