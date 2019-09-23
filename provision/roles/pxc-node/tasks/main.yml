@@ -56,9 +56,14 @@
   when: ("{{ hostname }}" == "node2") or
         ("{{ hostname }}" == "node3")
 
+- name: Create the sst task
+  become: true
+  template: src=sst_task.j2 dest=/tmp/sst_task.sh
+  when: ("{{ hostname }}" == "node3")
+
 - name: "SST task"
   cron:
     minute: "*/20"
-    job: "sleep $(($RANDOM%300+10)); systemctl stop mysql && rm -rf /var/lib/mysql/grastate.dat && systemctl start mysql &"
+    job: "bash /tmp/sst_task.sh"
   become: true
   when: ("{{ hostname }}" == "node3")

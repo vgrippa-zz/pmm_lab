@@ -50,10 +50,16 @@
 - name: copy the file to test reads
   template: src=mongo_read.j2 dest=/tmp/mongo_read.js owner=mongod group=mongod
 
+- name: copy the file to schedule the cron job for writes
+  template: src=cron_mongo_write.j2 dest=/tmp/cron_mongo_write.js owner=mongod group=mongod
+
+- name: copy the file to schedule the cron job for reads
+  template: src=cron_mongo_read.j2 dest=/tmp/cron_mongo_read.js owner=mongod group=mongod
+
 - name: "Configure write to run every 2 minute"
   cron:
     minute: "*/2"
-    job: "sleep $(($RANDOM%10+10)); mongo --nodb /tmp/mongo_write.js  &"
+    job: "bash /tmp/cron_mongo_write.sh"
   become: true
   delegate_to: '{{ item }}'
   with_items: "{{ groups['mongos_servers'] }}"
@@ -62,7 +68,7 @@
 - name: "Configure read to run every 1 minute"
   cron:
     minute: "*/1"
-    job: "sleep $(($RANDOM%50+10)); mongo --nodb /tmp/mongo_read.js &"
+    job: "bash /tmp/cron_mongo_read.js"
   become: true
   delegate_to: '{{ item }}'
   with_items: "{{ groups['mongos_servers'] }}"

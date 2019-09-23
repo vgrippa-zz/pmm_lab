@@ -11,40 +11,40 @@
 ## Deploy MySQL sysbench load file
 - name: Create the user file1
   become: true
-  template: src=load1.j2 dest=/tmp/load1.sh
+  template: src=mysql_load1.j2 dest=/tmp/mysql_load1.sh
 
 - name: Create the user file2
   become: true
-  template: src=load2.j2 dest=/tmp/load2.sh
+  template: src=mysql_load2.j2 dest=/tmp/mysql_load2.sh
 
 - name: Create the user file3
   become: true
-  template: src=load3.j2 dest=/tmp/load3.sh
+  template: src=mysql_load3.j2 dest=/tmp/mysql_load3.sh
 
 - name: "Configure sysbench-tpcc load1"
   ignore_errors: true
   cron:
     minute: "*/3"
-    job: "bash /tmp/load1.sh"
+    job: "bash /tmp/mysql_load1.sh"
   tags: sysbench-mysql
 
 - name: "Configure sysbench-tpcc load1"
   ignore_errors: true
   cron:
     minute: "*/4"
-    job: "bash /tmp/load1.sh"
+    job: "bash /tmp/mysql_load1.sh"
   tags: sysbench-mysql
 
 - name: "Configure sysbench-tpcc load2"
   ignore_errors: true
   cron:
     minute: "*/5"
-    job: "bash /tmp/load2.sh"
+    job: "bash /tmp/mysql_load2.sh"
   tags: sysbench-mysql
 
 - name: "Configure sysbench-tpcc load3"
   ignore_errors: true
   cron:
     minute: "*/7"
-    job: "bash /tmp/load3.sh"
+    job: "bash /tmp/mysql_load3.sh"
   tags: sysbench-mysql

@@ -8,23 +8,36 @@
     chdir: /opt/sysbench-tpcc
   tags: sysbench-pg
 
+## Deploy Postgres sysbench load file
+- name: Create the user file1
+  become: true
+  template: src=postgres_load1.j2 dest=/tmp/postgres_load1.sh
+
+- name: Create the user file2
+  become: true
+  template: src=postgres_load2.j2 dest=/tmp/postgres_load2.sh
+
+- name: Create the user file3
+  become: true
+  template: src=postgres_load3.j2 dest=/tmp/postgres_load3.sh
+
 - name: "Configure sysbench-tpcc to run every 3 minutes"
   ignore_errors: true
   cron:
     minute: "*/3"
-    job: "sleep $(($RANDOM%50+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
+    job: "bash /tmp/postgres_load3.sh"
   tags: sysbench-pg
 
 - name: "Configure sysbench-tpcc to run every 3 minutes"
   ignore_errors: true
   cron:
     minute: "*/2"
-    job: "sleep $(($RANDOM%10+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=0.3 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
+    job: "bash /tmp/postgres_load2.sh"
   tags: sysbench-pg
 
 - name: "Configure sysbench-tpcc to run every 3 minutes"
   ignore_errors: true
   cron:
     minute: "*/6"
-    job: "sleep $(($RANDOM%10+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=2 --report-interval=1 --tables=4 --scale=0.7 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
+    job: "bash /tmp/postgres_load1.sh"
   tags: sysbench-pg
