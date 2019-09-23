@@ -12,19 +12,19 @@
   ignore_errors: true
   cron:
     minute: "*/3"
-    job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "sleep $(($RANDOM%40+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
   tags: sysbench-mysql
 
 - name: "Configure sysbench-tpcc to run every 5 minutes"
   ignore_errors: true
   cron:
     minute: "*/4"
-    job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "sleep $(($RANDOM%20+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=2 --tables=2 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
   tags: sysbench-mysql
 
 - name: "Configure sysbench-tpcc to run every 5 minutes"
   ignore_errors: true
   cron:
     minute: "*/5"
-    job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=2 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=mysql run"
+    job: "sleep $(($RANDOM%50+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --mysql-host=10.0.0.12 --mysql-port=6033 --mysql-user=app --mysql-password=app --mysql-db=sysbench --time=20 --threads=4 --tables=3 --scale=0.5 --use_fk=0 --trx_level=RC --db-driver=mysql run"
   tags: sysbench-mysql

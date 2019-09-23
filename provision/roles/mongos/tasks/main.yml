@@ -53,7 +53,7 @@
 - name: "Configure write to run every 2 minute"
   cron:
     minute: "*/2"
-    job: "mongo --nodb /tmp/mongo_write.js  &"
+    job: "sleep $(($RANDOM%10+10)); mongo --nodb /tmp/mongo_write.js  &"
   become: true
   delegate_to: '{{ item }}'
   with_items: "{{ groups['mongos_servers'] }}"
@@ -62,7 +62,7 @@
 - name: "Configure read to run every 1 minute"
   cron:
     minute: "*/1"
-    job: "mongo --nodb /tmp/mongo_read.js &"
+    job: "sleep $(($RANDOM%50+10)); mongo --nodb /tmp/mongo_read.js &"
   become: true
   delegate_to: '{{ item }}'
   with_items: "{{ groups['mongos_servers'] }}"

@@ -12,5 +12,19 @@
   ignore_errors: true
   cron:
     minute: "*/3"
-    job: "cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
+    job: "sleep $(($RANDOM%50+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=1 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
+  tags: sysbench-pg
+
+- name: "Configure sysbench-tpcc to run every 3 minutes"
+  ignore_errors: true
+  cron:
+    minute: "*/2"
+    job: "sleep $(($RANDOM%10+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=1 --report-interval=1 --tables=4 --scale=0.3 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
+  tags: sysbench-pg
+
+- name: "Configure sysbench-tpcc to run every 3 minutes"
+  ignore_errors: true
+  cron:
+    minute: "*/6"
+    job: "sleep $(($RANDOM%10+10)); cd /opt/sysbench-tpcc && /usr/bin/env /usr/bin/sysbench tpcc.lua --pgsql-host=10.0.0.10 --pgsql-user=sysbench --pgsql-password=sysbench --pgsql-db=sysbench --time=20 --threads=2 --report-interval=1 --tables=4 --scale=0.7 --use_fk=0 --trx_level=RC --db-driver=pgsql run"
   tags: sysbench-pg
