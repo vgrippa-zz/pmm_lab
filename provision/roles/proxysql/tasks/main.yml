@@ -1,8 +1,13 @@
 ---
 # tasks file for provision/roles/pg
-- name: Install ProxySQL 2.0 rpm from a remote repo
+- name: Get ProxySQL 2.0 rpm from a remote repo
   yum:
     name: https://github.com/sysown/proxysql/releases/download/v2.0.6/proxysql-2.0.6-1-centos7.x86_64.rpm
+    state: present
+
+- name: Install ProxySQL 2.0
+  yum:
+    name: proxysql2
     state: present
 
 - name: Install MySQL Client
