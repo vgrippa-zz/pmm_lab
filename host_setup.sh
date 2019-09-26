@@ -1,4 +1,5 @@
 # Install VirtualBox dependencies
+sudo yum install -y wget
 sudo yum install -y epel-release
 sudo yum install -y gcc dkms make qt libgomp patch sysstat net-tools telnet
 sudo yum install -y kernel-headers kernel-devel binutils glibc-headers glibc-devel font-forge
@@ -36,5 +37,7 @@ sed -i 's/#PermitRootLogin/PermitRootLogin/g'  /etc/ssh/sshd_config
 echo "percona" | passwd --stdin root
 
 sudo sysctl -w vm.swappiness=1
+
+sudo yum upgrade -y 
 
 echo 'Please, reboot the server'
