@@ -4,7 +4,7 @@
   become: true
   roles:
   - common
-  - pmm-client
+#  - pmm-client
   - mongod
 
 - hosts: mongoc_servers
@@ -19,9 +19,9 @@
   roles:
   - role: mongos
 
-- hosts: pmm_client_servers
-  gather_facts: yes
-  become: true
-  ignore_errors: true
-  roles:
-    - pmm-client-mongo
+#- hosts: pmm_client_servers
+#  gather_facts: yes
+#  become: true
+#  ignore_errors: true
+#  roles:
+#    - pmm-client-mongo

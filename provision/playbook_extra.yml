@@ -4,7 +4,7 @@
   become: true
   roles:
   - common
-  - pmm-client
+#  - pmm-client
 
 - hosts: app-server
   gather_facts: yes
@@ -14,4 +14,4 @@
     - sysbench-pg
     - sysbench-mysql
     - proxysql
-    - pmm-client-proxysql
+#    - pmm-client-proxysql

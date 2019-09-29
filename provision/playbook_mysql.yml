@@ -4,7 +4,7 @@
   become: true
   roles:
   - common
-  - pmm-client
+#  - pmm-client
 
 - hosts: pxc-node1
   vars:
@@ -19,7 +19,7 @@
     - pxc-sst-user
     - mysql-plugins
     - mysql-replication-user
-    - pmm-client-mysql
+#    - pmm-client-mysql
     - mysql-sysbench
     - proxysql-user
 
@@ -32,7 +32,7 @@
   roles:
     - pxc-node
     - mysql-my-cnf
-    - pmm-client-mysql
+#    - pmm-client-mysql
 
 - hosts: pxc-node3
   vars:
@@ -43,7 +43,7 @@
   roles:
     - pxc-node
     - mysql-my-cnf
-    - pmm-client-mysql
+#    - pmm-client-mysql
 
 - hosts: mysql-replica
   gather_facts: yes
@@ -54,4 +54,4 @@
     - mysql-my-cnf
     - mysql-plugins
     - mysql-replicate
-    - pmm-client-mysql
+#    - pmm-client-mysql
